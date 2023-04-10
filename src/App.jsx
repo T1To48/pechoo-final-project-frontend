@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-
+import PhoneCallButton from './components/test.jsx';
 
 function App() {
   const [location, setLocation] = useState("")
@@ -28,7 +28,7 @@ function App() {
  }
   return (
     <div className="App">
-       
+       <PhoneCallButton/>
         <button onClick={getLocation}>
           getLocation
         </button>

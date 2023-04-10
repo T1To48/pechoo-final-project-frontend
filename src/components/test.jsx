@@ -1,15 +1,13 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react';
 
-const TEST = () => {
-    const[toggle,setToggle]=useState(false);
-    let str=toggle?"sexy pexxy":"";
-  
+function PhoneCallButton() {
+  const handlePhoneCall = () => {
+    window.location.href = 'tel:0545-846-820'; // Replace with the phone number you want to call
+  }
+
   return (
-<>
-
-    <div>{str}</div>
-    </>
-  )
+    <button onClick={handlePhoneCall}>Call now</button>
+  );
 }
 
-export default TEST
+export default PhoneCallButton;
