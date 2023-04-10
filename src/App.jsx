@@ -1,33 +1,39 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-//  import  TEST from './components/test.jsx'
-function App() {
-  const [count, setCount] = useState(0)
 
+
+function App() {
+  const [location, setLocation] = useState("")
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+ 
+  function success(pos) {
+    const crd = pos.coords;
+    setLocation(`${crd.latitude},"---", ${crd.longitude}`)
+    console.log("Your current position is:");
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
+  }
+ 
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+ const getLocation=()=>{
+  navigator.geolocation.getCurrentPosition(success, error, options);
+
+ }
   return (
     <div className="App">
-    <div>
-       <br/>       
-       <br/>       
-       <br/>       
-       <br/>       
-      </div>
-  
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+       
+        <button onClick={getLocation}>
+          getLocation
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      $$$$$$$$$$$$
+      {location&&location}
+   
     </div>
   )
 }
