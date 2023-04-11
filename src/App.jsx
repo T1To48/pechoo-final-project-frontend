@@ -28,6 +28,7 @@ function App() {
  }
   return (
     <div className="App">
+      <button onClick={()=>alert("test branch")}>click me to open alert</button>
        <PhoneCallButton/>
         <button onClick={getLocation}>
           getLocation
