@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import PhoneCallButton from './components/test.jsx';
+import CheckEmail from './components/EmailVerification.jsx';
 
 function App() {
   const [location, setLocation] = useState("")
@@ -35,6 +36,7 @@ function App() {
         </button>
       {location&&location}
    
+   <CheckEmail/>
     </div>
   )
 }
