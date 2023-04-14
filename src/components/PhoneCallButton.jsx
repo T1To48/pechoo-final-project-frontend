@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PhoneCallButton() {
+const PhoneCallButton=()=> {
   const handlePhoneCall = () => {
     window.location.href = 'tel:0545-846-820'; // Replace with the phone number you want to call
   }
