@@ -15,7 +15,7 @@ export const counterSlice=createSlice({
             state.value-=1;
         },
         incrementByAmount:(state)=>{
-            state.value+=accordionActionsClasses.payload
+            state.value+=action.payload
         }
     }
 })
