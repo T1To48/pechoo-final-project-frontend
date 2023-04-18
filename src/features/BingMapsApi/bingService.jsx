@@ -1,5 +1,8 @@
+import { fetchCurrentLocation } from "./bingSlice.jsx";
+
 const API_URL = "https://dev.virtualearth.net/REST/v1/";
 const API_KEY = `key=${import.meta.env.VITE_Bing_Api_Key}`;
+
 
 export const generateUrl = (method, params) => {
   switch (method) {
@@ -19,6 +22,11 @@ export const generateUrl = (method, params) => {
     case "routeInfo": {
       const { start, end } = params;
       const url = `${API_URL}Routes?wayPoint.1=${start}&waypoint.2=${end}&optimize=timeWithTraffic&maxSolutions=1&routeAttributes=routeSummariesOnly&${API_KEY}`;
+      return url;
+    }
+    case "routeInfoVia": {
+      const { start,via, end } = params;
+      const url = `${API_URL}Routes?wayPoint.1=${start}&viaWaypoint.2=${via}&waypoint.3=${end}&optimize=timeWithTraffic&maxSolutions=1&routeAttributes=routeSummariesOnly&${API_KEY}`;
       return url;
     }
     default: {
