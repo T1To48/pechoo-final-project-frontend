@@ -1,16 +1,17 @@
 import { Outlet } from "react-router-dom";
-
+import BottomNavBar from "./BottomNavBar.jsx";
 
 const SharedLayout = () => {
   return (
-    <>
-      <div>NAVBAR OR LOGO</div>
+    <><br/>
+      <br/>
+    <Outlet />
+      <BottomNavBar/>
+      
       <br/>
       <br/>
       <br/>
-      <br/>
-      <br/>
-          <Outlet />
+          
       
     </>
   );

@@ -1,39 +1,26 @@
 
-import { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
-const CurrentlocationFunction=()=> {
-  const [location, setLocation] = useState("")
+const Currentlocation =()=> {
+  const dispatch = useDispatch();
+
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,
   };
  
-  function success(pos) {
-    const crd = pos.coords;
-    setLocation(`${crd.latitude},"---", ${crd.longitude}`)
-    console.log("Your current position is:");
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
+   function success(pos) {
+    const {latitude,longitude} = pos.coords;
+    return `${latitude},${longitude}`
   }
  
   function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
+    console.log(`ERROR(${err.code}): ${err.message}`);
   }
- const getLocation=()=>{
-  navigator.geolocation.getCurrentPosition(success, error, options);
+  return navigator.geolocation.getCurrentPosition(success, error, options);
 
- }
-  return (
-    <div >
-        <button onClick={getLocation}>
-          getLocation
-        </button>
-      {location&&location}
-   
-    </div>
-  )
+ 
 }
 
-export default CurrentlocationFunction
+export default Currentlocation;

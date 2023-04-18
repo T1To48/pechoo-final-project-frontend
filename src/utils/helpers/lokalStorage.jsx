@@ -1,18 +1,22 @@
+
 export const lokalStorage = (method, key, value) => {
   switch (method) {
     case "set":
       localStorage.setItem(key, JSON.stringify(value));
-      return `${key} Successfully, ADDED!`; //true
+      return `${key} Successfully, ADDED!`; 
     case "get":
-      const storedvalue = localStorage.getItem(key);
-
-      return storedvalue ? JSON.parse(localStorage.getItem(key)) : false;
+      const storedValue = localStorage.getItem(key);
+      if(storedValue===null||storedValue==="undefined"||storedValue===undefined) {
+        return ;
+      }
+      console.log("storedValue", storedValue);
+      return storedValue ? JSON.parse(storedValue) : false;
 
     case "remove":
       localStorage.removeItem(key);
-      return `${key} Successfully, REMOVED!`; //true
+      return `${key} Successfully, REMOVED!`; 
     default:
-      return "undefined function parameters"; //false
+      return "undefined function parameters"; 
   }
 };
 
