@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
-
+import replace from "@rollup/plugin-replace"
 
 
 
@@ -43,7 +43,13 @@ export default defineConfig({
 
   })
 ],
-  build: {
+  build: { rollupOptions: {
+    plugins: [
+      replace({
+        'process.env.REACT_APP_ENABLE_GEOLOCATION': JSON.stringify(true), // Enable geolocation
+      }),
+    ],
+  },
     env: {
       VITE_BING_API_KEY: process.env.VITE_BING_API_KEY
     }

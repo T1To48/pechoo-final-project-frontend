@@ -1,16 +1,17 @@
 import * as React from "react";
+import {useNavigate} from "react-router-dom";
+
+
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import Paper from "@mui/material/Paper";
 import Fab from "@mui/material/Fab";
-
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreIcon from "@mui/icons-material/MoreVert";
+
+
 
 const StyledFab = styled(Fab)({
   position: "absolute",
@@ -22,6 +23,7 @@ const StyledFab = styled(Fab)({
 });
 
 export default function BottomNavBar() {
+  const navigate=useNavigate();
   return (
     <AppBar
       position="fixed"
@@ -44,6 +46,7 @@ export default function BottomNavBar() {
           height: window.innerHeight * 0.3
         }}
       >
+        <button onClick={()=>navigate("/orders-list")}>ORDERS LIST</button>
         <IconButton color="inherit" aria-label="open drawer">
           <SearchIcon />
         </IconButton>

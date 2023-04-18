@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAddressByString,
-  resetBing,
-} from "../features/BingMapsApi/bingSlice.jsx";
-import { publishOrder, resetOrderStates } from "../features/orders/orderSlice.jsx";
-import AddressForm from "./AddressForm.jsx";
+import { publishOrder, resetOrderStates } from "../../features/orders/orderSlice.jsx";
+import AddressForm from "../AddressForm.jsx";
 
 const OrderForm = () => {
   const [orderDetails, setOrderDetails] = useState({

@@ -69,6 +69,7 @@ export const getAddressByCoords = createAsyncThunk(
   }
 );
 
+
 export const fetchCurrentLocation = createAsyncThunk(
   "bing/fetchCurrentLocation",
   async (_, thunkAPI) => {
@@ -91,7 +92,34 @@ export const fetchCurrentLocation = createAsyncThunk(
   }
 );
 
+export const getRouteInfo = createAsyncThunk(
+  "bing/getRouteInfo",
+  async (detinationCoords, thunkAPI) => {
+    try {
+      const response = await axios.get(generateUrl("addrByCoords", detinationCoords));
+      const{data}=response
+      console.log(data)
+      if (data.statusDescription !== "OK") {
+        throw new Error(data.errorDetails[0]);
+      }
+      const { estimatedTotal } = data.resourceSets[0];
+      if (estimatedTotal === 0) {
+        throw new Error("Address Not Found, Try Again");
+      }
 
+      const { point, name } = data.resourceSets[0].resources[0];
+      const { coordinates } = point;
+
+      const fullAddress = {
+        address: name,
+        coords: coordinates.join(),
+      };
+      return fullAddress;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 export const bingSlice = createSlice({
   name: "bing",

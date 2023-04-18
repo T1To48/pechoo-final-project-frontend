@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SharedLayout from "./components/SharedLayouts.jsx";
-import "./App.css";
 
-// import CounterReduxTest from './components/CounterReduxTest.jsx'
+
+import SharedLayout from "./components/SharedLayouts.jsx";
 import { Register, Login, PublishOrder } from "./pages/exportsIndex.js";
-import OrdersList from "./components/orders/OrdersList.jsx";
+import OrderCardsList from "./components/orders/OrderCardsList.jsx";
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -15,7 +16,7 @@ function App() {
           <Route path="login" element={<Login />} />
 
           <Route path="new-order" element={<PublishOrder />} />
-          <Route path="orders-list" element={<OrdersList />} />
+          <Route path="orders-list" element={<OrderCardsList />} />
           {/* <Route path="landing" element={<Landing />} />
             
              */}
