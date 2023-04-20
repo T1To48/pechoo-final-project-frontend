@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { newOrder, userOrdersByStatus } from "./orderService.jsx";
+import { newOrder, userOrdersByStatus,publishedOrders } from "./orderService.jsx";
+import { lokalStorage } from "../importsIndex.jsx";
 
 const initialState = {
   userOrders: [],
@@ -65,6 +66,28 @@ export const get_User_Orders_By_Status = createAsyncThunk(
     }
   }
 );
+
+export const getPublishedOrders = createAsyncThunk(
+  "order/getPublishedOrders",
+  async (_, thunkAPI) => {
+    try {
+      const Orders= await publishedOrders();
+
+      if (Orders.data.length > 0) {
+        return Orders.data;
+      }
+    } catch (error) {
+const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //delete order
 
 export const orderSlice = createSlice({
@@ -92,6 +115,32 @@ export const orderSlice = createSlice({
         console.log("order has published successfully", action.payload);
       })
       .addCase(publishOrder.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
+      .addCase(get_User_Orders_By_Status.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(get_User_Orders_By_Status.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        lokalStorage("set","userOrders",action.payload)
+      })
+      .addCase(get_User_Orders_By_Status.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
+      .addCase(getPublishedOrders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getPublishedOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+       lokalStorage("set","publishedOrders",action.payload)
+      })
+      .addCase(getPublishedOrders.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;

@@ -1,5 +1,6 @@
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import { styled } from '@mui/system';
  
  
  export const AccordionSummary = styled((props) => (

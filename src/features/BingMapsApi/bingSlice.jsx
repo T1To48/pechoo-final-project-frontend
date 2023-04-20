@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { generateUrl } from "./bingService.jsx";
+import { lokalStorage } from "../importsIndex.jsx";
 
 const initialState = {
   currentLocation: "",
@@ -10,6 +11,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   errorMessage: "",
+  routeInfo:{}
 };
 
 export const getAddressByString = createAsyncThunk("bing/getAddressByString",
@@ -94,9 +96,9 @@ export const fetchCurrentLocation = createAsyncThunk(
 
 export const getRouteInfo = createAsyncThunk(
   "bing/getRouteInfo",
-  async (detinationCoords, thunkAPI) => {
+  async (destinationCoords, thunkAPI) => {
     try {
-      const response = await axios.get(generateUrl("addrByCoords", detinationCoords));
+      const response = await axios.get(generateUrl("routeInfo",destinationCoords ));
       const{data}=response
       console.log(data)
       if (data.statusDescription !== "OK") {
@@ -104,17 +106,16 @@ export const getRouteInfo = createAsyncThunk(
       }
       const { estimatedTotal } = data.resourceSets[0];
       if (estimatedTotal === 0) {
-        throw new Error("Address Not Found, Try Again");
+        throw new Error("Routes Not Found, Try Again");
       }
 
-      const { point, name } = data.resourceSets[0].resources[0];
-      const { coordinates } = point;
+      const { travelDistance, travelDurationTraffic } = data.resourceSets[0].resources[0];
 
-      const fullAddress = {
-        address: name,
-        coords: coordinates.join(),
+      const routeInfo = {
+        travelDistance: `${Math.floor(travelDistance)} KM `,
+        travelDurationLive: `${travelDurationTraffic/60} MIN'`,
       };
-      return fullAddress;
+      return routeInfo;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -133,6 +134,7 @@ export const bingSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
+      state.routeInfo={};
     },
   },
   extraReducers: (builder) => {
@@ -174,8 +176,22 @@ export const bingSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.currentLocation=action.payload
+        lokalStorage("set","currentLocation",action.payload)
     })
     .addCase(fetchCurrentLocation.rejected,(state,action)=>{
+        state.isLoading = false
+        state.isError = true
+        state.errorMessage=action.payload;
+    })
+    .addCase(getRouteInfo.pending, (state) => {
+        state.isLoading=true
+    })
+    .addCase(getRouteInfo.fulfilled,(state,action)=>{
+        state.isLoading = false
+        state.isSuccess = true
+        state.routeInfo=action.payload
+    })
+    .addCase(getRouteInfo.rejected,(state,action)=>{
         state.isLoading = false
         state.isError = true
         state.errorMessage=action.payload;

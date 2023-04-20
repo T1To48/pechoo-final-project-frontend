@@ -46,7 +46,7 @@ export default function BottomNavBar() {
           height: window.innerHeight * 0.3
         }}
       >
-        <button onClick={()=>navigate("/orders-list")}>ORDERS LIST</button>
+        <button onClick={()=>navigate("/published-orders")}>ORDERS LIST</button>
         <IconButton color="inherit" aria-label="open drawer">
           <SearchIcon />
         </IconButton>

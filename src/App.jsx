@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 import SharedLayout from "./components/SharedLayouts.jsx";
-import { Register, Login, PublishOrder } from "./pages/exportsIndex.js";
-import OrderCardsList from "./components/orders/OrderCardsList.jsx";
+import { Register, Login, PublishOrder,OrdersList } from "./pages/exportsIndex.js";
 
 
 function App() {
@@ -14,9 +13,10 @@ function App() {
           {/* <Route index element={<CounterReduxTest/>} /> */}
           <Route index element={<Register />} />
           <Route path="login" element={<Login />} />
+          <Route path="published-orders" element={<OrdersList />} />
 
           <Route path="new-order" element={<PublishOrder />} />
-          <Route path="orders-list" element={<OrderCardsList />} />
+          {/* <Route path="orders-list" element={<OrderCardsList />} /> */}
           {/* <Route path="landing" element={<Landing />} />
             
              */}

@@ -1,5 +1,8 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetBing,getRouteInfo } from "../../../features/BingMapsApi/bingSlice.jsx";
 
+import Timer from "./Timer.jsx";
 import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 import { CardMedia } from "@mui/material";
@@ -9,13 +12,63 @@ import Button from "@mui/material/Button";
 import Accordion from "./Accordion.jsx";
 import { AccordionDetails } from "./AccordionDetails.jsx";
 import { AccordionSummary } from "./AccordionSummary.jsx";
+import Chip from '@mui/material/Chip';
 
-export default function OrderCard() {
-  const [expanded, setExpanded] = React.useState("panel1");
 
+export default function OrderCard({
+  seconds,
+  imageUrl,
+  customerName,
+  customerAddress,
+  customerPhone,
+  price,
+  orderStatus,
+  coords
+}) {
+  
+  const [expanded, setExpanded] = useState("panel1");
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  const [routeDetails, setRouteDetails] = useState({
+    currentLocation:'',
+    customerCoords:"",
+    routeInfo:{}
+  })
+  const dispatch = useDispatch();
+  const { currentLocation, routeInfo,isLoading, isError, isSuccess, errorMessage } =
+    useSelector((state) => state.bing);
+
+    useEffect(() => {
+      if (isError) {
+        console.log(`ERROR While Login ${errorMessage}`);
+      }
+      if (isSuccess) {
+
+        console.log(`successfully fetched current location, / routeInfo`);
+      }
+      dispatch(resetBing());
+    }, [, isError, isSuccess, errorMessage]);
+
+    useEffect(() => {
+      dispatch(getRouteInfo());
+      setRouteDetails({
+        ...routeDetails,
+        currentLocation:currentLocation
+      })
+    },[currentLocation])
+
+    useEffect(() => {
+      setRouteDetails({
+        ...routeDetails,
+        routeInfo:routeInfo
+      })
+    },[routeInfo])
+
+if(isLoading){
+  return <h2>Loading...</h2>
+}
 
   return (
     <div>
@@ -24,7 +77,12 @@ export default function OrderCard() {
         onChange={handleChange("panel2")}
       >
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Collapsible Group Item #2</Typography>
+          <Typography>
+            {orderStatus === "Published" && seconds > 0 && (
+              <Timer seconds={seconds} />
+            )}
+            {orderStatus === "On The Way" && routeInfo&& `${routeInfo.travelDistance},${routeInfo.travelDurationLive}`}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ display: "flex", justifyContent: "center" }}>
           <Card sx={{ maxWidth: 345 }}>
@@ -32,15 +90,21 @@ export default function OrderCard() {
               component="img"
               alt="small route map"
               height="140"
-              image="/static/images/cards/contemplative-rep"
+              image={imageUrl}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="p">
-                Lizard
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                <Chip label={customerName} style={{ backgroundColor: "red" }} />
+                <Chip
+                  label={customerAddress}
+                  style={{ backgroundColor: "red" }}
+                />
+                <Chip
+                  label={customerPhone}
+                  style={{ backgroundColor: "red" }}
+                />
+                <Chip label={price} style={{ backgroundColor: "red" }} />
+                <Chip label={orderStatus} style={{ backgroundColor: "red" }} />
               </Typography>
             </CardContent>
             <CardActions>
