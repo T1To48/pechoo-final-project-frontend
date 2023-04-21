@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { lokalStorage } from "../../features/importsIndex.jsx";
 import { getPublishedOrders,resetOrderStates } from "../../features/orders/orderSlice.jsx";
 import { fetchCurrentLocation,getRouteInfo,resetBing } from "../../features/BingMapsApi/bingSlice.jsx";
-
+import { useNavigate } from "react-router-dom";
 
 import OrderCard from "./orderCard/OrderCard.jsx"
 
-const OrderCardsList = () => {
+const OrderCardsMap = () => {
   const [publishedOrders, setPublishedOrders] = useState([]);
   const [routeDetails, setRouteDetails] = useState({
     start:lokalStorage("get","currentLocation"),
     end:"",
   })
-
+const navigate=useNavigate();
   const dispatch = useDispatch();
   const {published_orders_success,isError,errorMessage }=useSelector(state=>state.order)
   useEffect(() => {
@@ -52,10 +52,11 @@ customerPhone = {order.customerPhone}
 price = {order.price}
 orderStatus ={order.orderStatus}
 coords={order.coords}
+routeButton={()=>navigate(`/${lokalStorage("get","currentLocation")}/${order.coords}`)}
 // routeInfo={order.routeInfo}
  />)})}
     </div>
   );
 };
 
-export default OrderCardsList;
+export default OrderCardsMap;

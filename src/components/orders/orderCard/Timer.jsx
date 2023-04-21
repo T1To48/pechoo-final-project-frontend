@@ -3,6 +3,7 @@ import React from "react";
 
 const Timer = ({seconds }) => {
   const totalTime = seconds;
+
   const renderTime = ({ remainingTime }) => {
     const remainingSeconds = remainingTime % 60;
     const remainingMinutes = Math.floor(remainingTime / 60);

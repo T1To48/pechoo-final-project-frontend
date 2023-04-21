@@ -42,7 +42,7 @@ export const publishedOrders = async () => {
   let reqOptions = {
     url: `${baseUrl}/published-orders`,
     method: "GET",
-    headers: { Authorization: headersList.Authorization },
+    headers: { "Authorization": headersList.Authorization },
   };
 
   let response = await axios.request(reqOptions);

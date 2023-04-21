@@ -20,7 +20,6 @@ export const registerUser=async(userData)=>{
        }
        
        let response = await axios.request(reqOptions);
-       console.log(response)
        return response.data;
     }
 //login

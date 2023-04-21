@@ -9,6 +9,8 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   errorMessage: "",
+  published_orders_success :false,
+
 };
 
 //add order
@@ -101,7 +103,10 @@ export const orderSlice = createSlice({
       //   state.userOrders=[];
       state.publishedOrder = null;
       state.errorMessage = "";
+      state.published_orders_success = false;
+
     },
+    
   },
   extraReducers: (builder) => {
     builder
@@ -137,8 +142,10 @@ export const orderSlice = createSlice({
       })
       .addCase(getPublishedOrders.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
-       lokalStorage("set","publishedOrders",action.payload)
+        state.published_orders_success = true;
+
+        lokalStorage("set","publishedOrders",action.payload);
+
       })
       .addCase(getPublishedOrders.rejected, (state, action) => {
         state.isLoading = false;

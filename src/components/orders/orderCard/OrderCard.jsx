@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetBing,getRouteInfo } from "../../../features/BingMapsApi/bingSlice.jsx";
+// import { resetBing,getRouteInfo } from "../../../features/BingMapsApi/bingSlice.jsx";
 
 import Timer from "./Timer.jsx";
 import Typography from "@mui/material/Typography";
@@ -13,17 +13,20 @@ import Accordion from "./Accordion.jsx";
 import { AccordionDetails } from "./AccordionDetails.jsx";
 import { AccordionSummary } from "./AccordionSummary.jsx";
 import Chip from '@mui/material/Chip';
+import { lokalStorage } from "../../../features/importsIndex.jsx";
 
 
 export default function OrderCard({
   seconds,
-  imageUrl,
+  // imageUrl,
   customerName,
   customerAddress,
   customerPhone,
   price,
   orderStatus,
-  coords
+  routeButton,
+  routeInfo
+  // coords
 }) {
   
   const [expanded, setExpanded] = useState("panel1");
@@ -31,44 +34,7 @@ export default function OrderCard({
     setExpanded(newExpanded ? panel : false);
   };
 
-  const [routeDetails, setRouteDetails] = useState({
-    currentLocation:'',
-    customerCoords:"",
-    routeInfo:{}
-  })
-  const dispatch = useDispatch();
-  const { currentLocation, routeInfo,isLoading, isError, isSuccess, errorMessage } =
-    useSelector((state) => state.bing);
 
-    useEffect(() => {
-      if (isError) {
-        console.log(`ERROR While Login ${errorMessage}`);
-      }
-      if (isSuccess) {
-
-        console.log(`successfully fetched current location, / routeInfo`);
-      }
-      dispatch(resetBing());
-    }, [, isError, isSuccess, errorMessage]);
-
-    useEffect(() => {
-      dispatch(getRouteInfo());
-      setRouteDetails({
-        ...routeDetails,
-        currentLocation:currentLocation
-      })
-    },[currentLocation])
-
-    useEffect(() => {
-      setRouteDetails({
-        ...routeDetails,
-        routeInfo:routeInfo
-      })
-    },[routeInfo])
-
-if(isLoading){
-  return <h2>Loading...</h2>
-}
 
   return (
     <div>
@@ -77,23 +43,38 @@ if(isLoading){
         onChange={handleChange("panel2")}
       >
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>
+          <Typography variant="h5" component="div">
+
+
             {orderStatus === "Published" && seconds > 0 && (
               <Timer seconds={seconds} />
             )}
-            {orderStatus === "On The Way" && routeInfo&& `${routeInfo.travelDistance},${routeInfo.travelDurationLive}`}
+
+{/* { routeInfo&& ( 
+              <>
+              <Timer seconds={seconds} />
+              {routeInfo.travelDistance}
+              </>
+              
+            )} */}
+
+
+
+
+            {/* {orderStatus === "On The Way" && routeInfo&& `${routeInfo.travelDistance},${routeInfo.travelDurationLive}`} */}
+            
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ display: "flex", justifyContent: "center" }}>
           <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
+            {/* <CardMedia
               component="img"
               alt="small route map"
               height="140"
               image={imageUrl}
-            />
+            /> */}
             <CardContent>
-              <Typography gutterBottom variant="h5" component="p">
+              <Typography gutterBottom variant="h5" component="div">
                 <Chip label={customerName} style={{ backgroundColor: "red" }} />
                 <Chip
                   label={customerAddress}
@@ -109,7 +90,7 @@ if(isLoading){
             </CardContent>
             <CardActions>
               <Button size="small">Accept</Button>
-              <Button size="small">Check Route</Button>
+              <Button size="small" onClick={routeButton}>Check Route</Button>
             </CardActions>
           </Card>
         </AccordionDetails>

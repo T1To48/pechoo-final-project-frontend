@@ -41,7 +41,6 @@ const handleChange = (e) => {
   };
   const handleSubmit=(e)=>{
     e.preventDefault();
-    // console.log(loginDetails)
     dispatch(login(loginDetails))
   }
 

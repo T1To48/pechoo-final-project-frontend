@@ -9,7 +9,6 @@ export const lokalStorage = (method, key, value) => {
       if(storedValue===null||storedValue==="undefined"||storedValue===undefined) {
         return ;
       }
-      console.log("storedValue", storedValue);
       return storedValue ? JSON.parse(storedValue) : false;
 
     case "remove":

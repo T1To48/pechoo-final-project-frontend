@@ -32,7 +32,6 @@ const AddressForm = () => {
     }
     dispatch(getAddressByCoords(currentLocation));
 
-    console.log(currentLocation);
   };
   const findAddress = async (e) => {
     if (e.target.value === "") {
