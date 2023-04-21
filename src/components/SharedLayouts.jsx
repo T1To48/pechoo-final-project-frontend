@@ -6,7 +6,8 @@ const SharedLayout = () => {
     <><br/>
       <br/>
     <Outlet />
-      <BottomNavBar/>
+    <BottomNavBar />
+      
       
       <br/>
       <br/>

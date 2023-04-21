@@ -10,18 +10,18 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  isLoggedIn: loggedUser ?true:false,
 };
 
 export const register = createAsyncThunk(
   "user/register",
   async (userData, thunkAPI) => {
     try {
-      const data=await registerUser(userData);
-      if(data.message){
+      const data = await registerUser(userData);
+      if (data.message) {
         throw new Error(data.message);
       }
-      return data
-      
+      return data;
     } catch (error) {
       const message =
         (error.response &&
@@ -38,19 +38,19 @@ export const login = createAsyncThunk(
   "user/login",
   async (userData, thunkAPI) => {
     try {
-      const user=await loginUser(userData)
-      if(user.message) {
+      const user = await loginUser(userData);
+      if (user.message) {
         throw new Error(user.message);
       }
-      return user.data ;
+      return user.data;
     } catch (error) {
       const message =
-      (error.response &&
-        error.response.data &&
-        error.response.data.message) ||
-      error.message ||
-      error;
-    return thunkAPI.rejectWithValue(message);
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error;
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -64,6 +64,12 @@ export const userSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
+    },
+    
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.loggedUser = null;
+      lokalStorage.clear();
     },
   },
   extraReducers: (builder) => {
@@ -92,23 +98,24 @@ export const userSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        let{token,user}=action.payload;
-        const userOrders=user.orders;
-        lokalStorage("set","userOrders",userOrders)
-        user={
+        state.isLoggedIn = true;
+        let { token, user } = action.payload;
+        const userOrders = user.orders;
+        lokalStorage("set", "userOrders", userOrders);
+        user = {
           ...user,
-          orders:[]
-        }
+          orders: [],
+        };
 
-         lokalStorage("set","loggedUser",user);
+        lokalStorage("set", "loggedUser", user);
 
-        lokalStorage("set","token",token);
+        lokalStorage("set", "token", token);
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      })
+      });
   },
 });
 

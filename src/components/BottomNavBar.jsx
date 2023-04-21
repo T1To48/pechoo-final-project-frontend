@@ -1,17 +1,23 @@
-import * as React from "react";
-import {useNavigate} from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Fab from "@mui/material/Fab";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from "@mui/icons-material/Search";
-import MoreIcon from "@mui/icons-material/MoreVert";
+import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import DeliveryDiningRoundedIcon from "@mui/icons-material/DeliveryDiningRounded";
+import { useTheme } from "@emotion/react";
+import HistoryRoundedIcon from "@mui/icons-material/HistoryRounded";
+import OnlinePredictionRoundedIcon from "@mui/icons-material/OnlinePredictionRounded";
+import InputRoundedIcon from "@mui/icons-material/InputRounded";
+import PinDropRoundedIcon from "@mui/icons-material/PinDropRounded";
+import { Typography } from "@mui/material";
 
-
+import { useSelector } from "react-redux";
 
 const StyledFab = styled(Fab)({
   position: "absolute",
@@ -19,51 +25,126 @@ const StyledFab = styled(Fab)({
   top: -30,
   left: 0,
   right: 0,
-  margin: "0 auto"
+  margin: "0 auto",
 });
 
 export default function BottomNavBar() {
-  const navigate=useNavigate();
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("");
+
+  useEffect(() => {
+    // Update the active tab state when the location pathname changes
+    setActiveTab(location.pathname);
+  }, [location.pathname]);
+
+  const theme = useTheme();
+
+  const { isLoggedIn, loggedUser } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
   return (
     <AppBar
       position="fixed"
-      color="primary"
       sx={{
         top: "auto",
         bottom: 0,
         left: 0,
         right: 0,
-        borderTopLeftRadius: "20px",
-        borderTopRightRadius: "20px",
-        height: window.innerHeight * 0.1
+        borderTopLeftRadius: "2rem",
+        borderTopRightRadius: "2rem",
+        height: window.innerHeight * 0.1,
+        backgroundColor: theme.palette.primary.black,
       }}
     >
       <Toolbar
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          mx: 5,
-          height: window.innerHeight * 0.3
+          justifyContent: isLoggedIn ? "space-around" : "space-around",
+          height: window.innerHeight * 0.3,
+          marginTop: "2px",
+          // mx: 1,
         }}
       >
-        <button onClick={()=>navigate("/published-orders")}>ORDERS LIST</button>
-        <IconButton color="inherit" aria-label="open drawer">
-          <SearchIcon />
-        </IconButton>
-        <IconButton color="inherit" aria-label="open drawer">
-          <SearchIcon />
-        </IconButton>
+        {isLoggedIn ? (
+          <>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => navigate("/published-orders")}
+            >
+              <HistoryRoundedIcon fontSize="large" />
+            </IconButton>
+            <IconButton color="inherit" aria-label="open drawer">
+              <OnlinePredictionRoundedIcon />
+            </IconButton>
 
-        <StyledFab color="secondary" aria-label="add">
-          <AddIcon sx={{ paddingTop: "px" }} />
-        </StyledFab>
+            <StyledFab color="primary" sx={{ marginTop: "10px" }}>
+              <DeliveryDiningRoundedIcon fontSize="large" />
+            </StyledFab>
 
-        <IconButton color="inherit">
-          <SearchIcon sx={{ fontSize: "30px" }} />
-        </IconButton>
-        <IconButton color="inherit">
-          <MoreIcon />
-        </IconButton>
+            <IconButton color="inherit">
+              <BorderColorRoundedIcon fontSize="large" />
+            </IconButton>
+            <IconButton color="inherit">
+              <PersonRoundedIcon fontSize="large" />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <IconButton
+              color="inherit"
+              sx={{
+                flexDirection: "column",
+                color:
+                  activeTab === "/register"
+                    ? theme.palette.secondary.buttonText
+                    : theme.palette.primary.main,
+              }}
+              onClick={() => navigate("/register")}
+              disableRipple
+            >
+              <BorderColorRoundedIcon fontSize="medium" />
+              <Typography fontSize="small" fontWeight="700">
+                Register
+              </Typography>
+            </IconButton>
+            <IconButton
+              color="inherit"
+              sx={{
+                flexDirection: "column",
+                color:
+                  activeTab === "/tracking-map"
+                    ? theme.palette.secondary.buttonText
+                    : theme.palette.primary.main,
+              }}
+              // onClick={() => navigate("/tracking-map")}
+              disableRipple
+            >
+              <PinDropRoundedIcon fontSize="medium" />
+              <Typography fontSize="small" fontWeight="700">
+                Track
+              </Typography>
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              sx={{
+                flexDirection: "column",
+                color:
+                  activeTab === "/login"
+                    ? theme.palette.secondary.buttonText
+                    : theme.palette.primary.main,
+              }}
+              onClick={() => navigate("/login")}
+              disableRipple
+            >
+              <InputRoundedIcon fontSize="medium" />
+              <Typography fontSize="small" fontWeight="700">
+                Login
+              </Typography>
+            </IconButton>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

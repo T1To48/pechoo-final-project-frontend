@@ -18,21 +18,33 @@ const navigate=useNavigate();
   const {published_orders_success,isError,errorMessage }=useSelector(state=>state.order)
   useEffect(() => {
     if(isError){
-      console.log(`ERROR While getting published orders ${message}`)
+      console.log(`ERROR While getting published orders ${errorMessage}`)
     }
     if(published_orders_success){
       setPublishedOrders(lokalStorage("get","publishedOrders"))
       
-      // navigate()
     }
     dispatch(resetOrderStates())
   }, [ isError, published_orders_success, errorMessage])
 
   
-//get static map
 
 
+useEffect(() => {
+  const user = lokalStorage("get", "loggedUser") || false;
 
+  if (user && user.userType === "Driver") {
+    const setDriverLocation = setInterval(() => {
+      dispatch(getPublishedOrders());
+      dispatch(fetchCurrentLocation());
+      console.log("i think am working!!!!!!");
+    }, 7000);
+
+    return () => {
+      clearInterval(setDriverLocation);
+    };
+  }
+}, []);
 
 
 

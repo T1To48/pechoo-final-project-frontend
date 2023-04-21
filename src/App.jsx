@@ -7,7 +7,8 @@ import {
   Login,
   PublishOrder,
   OrdersList,
-  Map
+  Map,
+  LandingPage
 } from "./pages/exportsIndex.js";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,6 @@ function App() {
 
     if (user && user.userType === "Driver") {
       const setDriverLocation = setInterval(() => {
-        dispatch(getPublishedOrders());
         dispatch(fetchCurrentLocation());
       }, 10000);
 
@@ -40,7 +40,8 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           {/* <Route index element={<CounterReduxTest/>} /> */}
-          <Route index element={<Register />} />
+          <Route index element={<LandingPage/>} />
+          <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="published-orders" element={<OrdersList />} />
           <Route path=":endCoords" element={<Map />} />
