@@ -4,13 +4,14 @@ import { useParams } from 'react-router-dom'
 
 const Map = () => {
 const {
-    startCoords,
     endCoords,
 }=useParams()
 
+
+
   return (
     <div>
-        <OrderMap start={startCoords} end={endCoords}/>
+        <OrderMap  end={endCoords}/>
     </div>
   )
 }

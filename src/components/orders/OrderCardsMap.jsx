@@ -52,7 +52,7 @@ customerPhone = {order.customerPhone}
 price = {order.price}
 orderStatus ={order.orderStatus}
 coords={order.coords}
-routeButton={()=>navigate(`/${lokalStorage("get","currentLocation")}/${order.coords}`)}
+routeButton={()=>navigate(`/${order.coords}`)}
 // routeInfo={order.routeInfo}
  />)})}
     </div>

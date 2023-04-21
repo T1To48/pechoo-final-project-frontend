@@ -96,8 +96,7 @@ export const getRouteInfo = createAsyncThunk(
   "bing/getRouteInfo",
   async (destinationCoords, thunkAPI) => {
     try {
-      const { startEnd, objIndex } = destinationCoords;
-      const response = await axios.get(generateUrl("routeInfo", startEnd));
+      const response = await axios.get(generateUrl("routeInfo", destinationCoords));
       const { data } = response;
       console.log(data);
       if (data.statusDescription !== "OK") {
@@ -114,7 +113,6 @@ export const getRouteInfo = createAsyncThunk(
       const routeInfo = {
         travelDistance: `${Math.floor(travelDistance)} KM `,
         travelDurationLive: travelDurationTraffic,
-        objIndex: objIndex,
       };
       return routeInfo;
     } catch (error) {
@@ -187,9 +185,9 @@ export const bingSlice = createSlice({
       })
       .addCase(getRouteInfo.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = false;
-        state.routeInfo = action.payload;
-       
+        state.isSuccess = true;
+        lokalStorage("set","routeInfo", action.payload||{});
+
       })
       .addCase(getRouteInfo.rejected, (state, action) => {
         state.isLoading = false;

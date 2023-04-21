@@ -43,7 +43,7 @@ function App() {
           <Route index element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="published-orders" element={<OrdersList />} />
-          <Route path=":startCoords/:endCoords" element={<Map />} />
+          <Route path=":endCoords" element={<Map />} />
           <Route path="new-order" element={<PublishOrder />} />
           {/* <Route path="orders-list" element={<OrderCardsList />} /> */}
           {/* <Route path="landing" element={<Landing />} />
