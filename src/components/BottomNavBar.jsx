@@ -52,7 +52,7 @@ export default function BottomNavBar() {
         right: 0,
         borderTopLeftRadius: "1.7rem",
         borderTopRightRadius: "1.7rem",
-        height: window.innerHeight * 0.1,
+        height: window.innerHeight * 0.11,
         backgroundColor: theme.palette.primary.black,
       }}
     >
