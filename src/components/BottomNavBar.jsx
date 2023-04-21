@@ -97,8 +97,8 @@ export default function BottomNavBar() {
                 flexDirection: "column",
                 color:
                   activeTab === "/register"
-                    ? theme.palette.secondary.buttonText
-                    : theme.palette.primary.main,
+                    ? theme.palette.primary.main
+                    : theme.palette.secondary.buttonText,
               }}
               onClick={() => navigate("/register")}
               disableRipple
@@ -114,8 +114,8 @@ export default function BottomNavBar() {
                 flexDirection: "column",
                 color:
                   activeTab === "/tracking-map"
-                    ? theme.palette.secondary.buttonText
-                    : theme.palette.primary.main,
+                    ? theme.palette.primary.main
+                    : theme.palette.secondary.buttonText,
               }}
               // onClick={() => navigate("/tracking-map")}
               disableRipple
@@ -132,8 +132,8 @@ export default function BottomNavBar() {
                 flexDirection: "column",
                 color:
                   activeTab === "/login"
-                    ? theme.palette.secondary.buttonText
-                    : theme.palette.primary.main,
+                    ? theme.palette.primary.main
+                    : theme.palette.secondary.buttonText,
               }}
               onClick={() => navigate("/login")}
               disableRipple
