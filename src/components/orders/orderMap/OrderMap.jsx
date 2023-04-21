@@ -63,10 +63,13 @@ const OrderMap = ({ end }) => {
       
      
     </div>
-    {routeDetails&&<>
-         <Timer seconds={routeDetails.travelDurationLive-0}/>
-      <h2>{routeDetails.travelDistance}</h2>
-      </>
+    {routeDetails&&
+    <>
+     <span><h2>{routeDetails.travelDistance}</h2></span><Timer seconds={routeDetails.travelDurationLive-0}/>
+      
+    </>
+        
+      
     }
 
     </div>
