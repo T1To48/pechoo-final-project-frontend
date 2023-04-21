@@ -61,7 +61,6 @@ export default function BottomNavBar() {
           display: "flex",
           justifyContent: isLoggedIn ? "space-around" : "space-around",
           height: window.innerHeight * 0.3,
-          marginTop: "2px",
           // mx: 1,
         }}
       >
