@@ -50,8 +50,8 @@ export default function BottomNavBar() {
         bottom: 0,
         left: 0,
         right: 0,
-        borderTopLeftRadius: "2rem",
-        borderTopRightRadius: "2rem",
+        borderTopLeftRadius: "1.7rem",
+        borderTopRightRadius: "1.7rem",
         height: window.innerHeight * 0.1,
         backgroundColor: theme.palette.primary.black,
       }}
