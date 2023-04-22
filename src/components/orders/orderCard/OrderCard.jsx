@@ -14,18 +14,18 @@ import { AccordionDetails } from "./AccordionDetails.jsx";
 import { AccordionSummary } from "./AccordionSummary.jsx";
 import Chip from '@mui/material/Chip';
 import AlarmOnRoundedIcon from '@mui/icons-material/AlarmOnRounded';
-import { Diversity1Outlined } from "@mui/icons-material";
 
 export default function OrderCard({
   seconds,
-  // imageUrl,
   customerName,
   customerAddress,
   customerPhone,
   price,
   orderStatus,
   routeButton,
-  routeInfo
+  handleDriverAccept,
+   routeInfo,
+  // imageUrl,
   // coords
 }) {
   const theme=useTheme();
@@ -97,7 +97,8 @@ export default function OrderCard({
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Accept</Button>
+              {handleDriverAccept&&
+              <Button onClick={handleDriverAccept} size="small">Accept</Button>}
               <Button size="small" onClick={routeButton}>Check Route</Button>
             </CardActions>
           </Card>

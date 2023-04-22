@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { lokalStorage } from "../../features/importsIndex.jsx";
-import { getPublishedOrders,resetOrderStates } from "../../features/orders/orderSlice.jsx";
+import { getPublishedOrders,resetIsOrderStatusAccepted,resetOrderStates, updateOrderAccepted } from "../../features/orders/orderSlice.jsx";
 import { fetchCurrentLocation,getRouteInfo,resetBing } from "../../features/BingMapsApi/bingSlice.jsx";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const PublishedOrdersList = () => {
   })
 const navigate=useNavigate();
   const dispatch = useDispatch();
-  const {published_orders_success,isError,errorMessage }=useSelector(state=>state.order)
+  const {published_orders_success,isError,errorMessage,isOrderStatusAccepted }=useSelector(state=>state.order)
   useEffect(() => {
     if(isError){
       console.log(`ERROR While getting published orders ${errorMessage}`)
@@ -28,7 +28,21 @@ const navigate=useNavigate();
   }, [ isError, published_orders_success, errorMessage])
 
   
+  const handleDriverAccept=(orderId)=>{
+    console.log("TARGEET",orderId)
 
+    dispatch(updateOrderAccepted(orderId))
+}
+  
+
+useEffect(()=>{
+  if(isOrderStatusAccepted){
+    // navigate("/MY ACTIVE ORERS")
+    console.log("DRIVER ACCEPTED THE ORDER SUCESSFULLY")
+  }
+  dispatch(resetIsOrderStatusAccepted())
+  dispatch(resetOrderStates())
+},[isOrderStatusAccepted])
 
 useEffect(() => {
   const user = lokalStorage("get", "loggedUser") || false;
@@ -65,6 +79,7 @@ price = {order.price}
 orderStatus ={order.orderStatus}
 coords={order.coords}
 routeButton={()=>navigate(`/${order.coords}`)}
+handleDriverAccept={()=>handleDriverAccept(order.id)}
 // routeInfo={order.routeInfo}
  />)})}
     </div>

@@ -48,3 +48,18 @@ export const publishedOrders = async () => {
   let response = await axios.request(reqOptions);
   return response.data;
 };
+
+
+export const  updateOrder_TOAccepted=(orderId)=>{
+  
+  let reqOptions = {
+    url: `${baseUrl}/${loggedUser.id}/accepted/${orderId}`,
+    method: "PUT",
+    headers: { "Authorization": headersList.Authorization },
+  };
+
+  let response=axios.request(reqOptions);
+  console.log(response)
+  return response
+
+}

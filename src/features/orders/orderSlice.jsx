@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { newOrder, userOrdersByStatus,publishedOrders } from "./orderService.jsx";
+import { newOrder, userOrdersByStatus,publishedOrders, updateOrder_TOAccepted } from "./orderService.jsx";
 import { lokalStorage } from "../importsIndex.jsx";
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
   isLoading: false,
   errorMessage: "",
   published_orders_success :false,
+  isOrderStatusAccepted:false,
 
 };
 
@@ -38,8 +39,30 @@ export const publishOrder = createAsyncThunk(
   }
 );
 
-//get order by id
 
+
+//get order by id
+export const updateOrderAccepted=createAsyncThunk(
+  "order/updateOrderAccepted",
+  async(orderId,thunkAPI)=>{
+    try{
+      const response =await updateOrder_TOAccepted(orderId);
+      if (!response.success) {
+        throw new error(response.data);
+      }
+      return response;
+
+    }catch(error){
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
 //update order
 
 //update order-status
@@ -106,6 +129,9 @@ export const orderSlice = createSlice({
       state.published_orders_success = false;
 
     },
+    resetIsOrderStatusAccepted:(state)=>{
+      state.isOrderStatusAccepted=false;
+    }
     
   },
   extraReducers: (builder) => {
@@ -151,10 +177,23 @@ export const orderSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;
-      });
+      })
+      .addCase(updateOrderAccepted.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateOrderAccepted.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isOrderStatusAccepted=true;
+
+      })
+      .addCase(updateOrderAccepted.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
   },
 });
 
-export const { resetOrderStates } = orderSlice.actions;
+export const { resetOrderStates,resetIsOrderStatusAccepted } = orderSlice.actions;
 
 export default orderSlice.reducer;
