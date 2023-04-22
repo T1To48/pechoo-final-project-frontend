@@ -9,18 +9,18 @@ const Timer = ({seconds }) => {
     const remainingMinutes = Math.floor(remainingTime / 60);
 
     return (
-      <div style={{ color: "#CD6D0C" }}>
+      <div >
         {remainingMinutes > 0 ? (
           <div style={{ textAlign: "center" }}>
             <div >
               {remainingMinutes > 0 && remainingMinutes + 1}
             </div>
-            <div className="label">Minutes</div>
+            <div className="label">Min`</div>
           </div>
         ) : (
           <div style={{ textAlign: "center" }}>
             <div >{remainingSeconds}</div>
-            <div >Seconds</div>
+            <div >Sec</div>
           </div>
         )}
       </div>
@@ -32,17 +32,21 @@ const Timer = ({seconds }) => {
       style={{
         backgroundColor: "black",
         overflow: "hidden",
-        height: "fit-content",
         width: "fit-content",
-        borderRadius: "90px"
+        borderRadius: "50px",
+        fontSize: "15px",
+        padding:"0",
+        margin: "0",
+        color: "#CD6D0C"
       }}
-      className="timer-wrapper"
     >
       <CountdownCircleTimer
         isPlaying
         duration={totalTime}
         colors="#CD6D0C"
         trailColor="black"
+        size="60"
+        strokeWidth="4"
       >
         {renderTime}
       </CountdownCircleTimer>

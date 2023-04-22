@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Timer from "./Timer.jsx";
 import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
-import { CardMedia } from "@mui/material";
+import { useTheme } from "@emotion/react";
 import { CardContent } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
@@ -13,8 +13,8 @@ import Accordion from "./Accordion.jsx";
 import { AccordionDetails } from "./AccordionDetails.jsx";
 import { AccordionSummary } from "./AccordionSummary.jsx";
 import Chip from '@mui/material/Chip';
-import { lokalStorage } from "../../../features/importsIndex.jsx";
-
+import AlarmOnRoundedIcon from '@mui/icons-material/AlarmOnRounded';
+import { Diversity1Outlined } from "@mui/icons-material";
 
 export default function OrderCard({
   seconds,
@@ -28,7 +28,7 @@ export default function OrderCard({
   routeInfo
   // coords
 }) {
-  
+  const theme=useTheme();
   const [expanded, setExpanded] = useState("panel1");
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -41,13 +41,21 @@ export default function OrderCard({
       <Accordion
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
+        sx={{backgroundColor: theme.palette.primary.main}}
       >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography variant="h5" component="div">
+        <AccordionSummary sx={{backgroundColor: theme.palette.primary.black,borderRadius:"50px",height:"5rem"}} aria-controls="panel2d-content" id="panel2d-header">
+          <Typography  variant="h5" component="div">
 
 
             {orderStatus === "Published" && seconds > 0 && (
-              <Timer seconds={seconds} />
+              <Timer  seconds={seconds} />
+            )}
+            {orderStatus==="Ready For Delivery"&&(
+              <div style={{display:"flex",justifyContent:"center",}} >
+              <AlarmOnRoundedIcon  fontSize="large"/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Typography variant="h5">Ready For Delivery!</Typography>
+              </div>
             )}
 
 {/* { routeInfo&& ( 
@@ -65,7 +73,7 @@ export default function OrderCard({
             
           </Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ display: "flex", justifyContent: "center" }}>
+        <AccordionDetails sx={{ display: "flex", justifyContent: "center", }}>
           <Card sx={{ maxWidth: 345 }}>
             {/* <CardMedia
               component="img"

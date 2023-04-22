@@ -28,7 +28,7 @@ function App() {
       const setDriverLocation = setInterval(() => {
         dispatch(fetchCurrentLocation());
       }, 10000);
-
+      console.log("time interval app.jsx")
       return () => {
         clearInterval(setDriverLocation);
       };
