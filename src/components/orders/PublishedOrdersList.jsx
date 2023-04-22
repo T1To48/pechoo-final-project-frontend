@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import OrderCard from "./orderCard/OrderCard.jsx"
 
-const OrderCardsMap = () => {
+const PublishedOrdersList = () => {
   const [publishedOrders, setPublishedOrders] = useState([]);
   const [routeDetails, setRouteDetails] = useState({
     start:lokalStorage("get","currentLocation"),
@@ -71,4 +71,4 @@ routeButton={()=>navigate(`/${order.coords}`)}
   );
 };
 
-export default OrderCardsMap;
+export default PublishedOrdersList;

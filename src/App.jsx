@@ -6,7 +6,7 @@ import {
   Register,
   Login,
   PublishOrder,
-  OrdersList,
+  PublishedOrders,
   Map,
   LandingPage
 } from "./pages/exportsIndex.js";
@@ -43,7 +43,7 @@ function App() {
           <Route index element={<LandingPage/>} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          <Route path="published-orders" element={<OrdersList />} />
+          <Route path="published-orders" element={<PublishedOrders />} />
           <Route path=":endCoords" element={<Map />} />
           <Route path="new-order" element={<PublishOrder />} />
           {/* <Route path="orders-list" element={<OrderCardsList />} /> */}
