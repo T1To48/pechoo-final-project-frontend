@@ -99,6 +99,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isLoggedIn = true;
+        
         let { token, user } = action.payload;
         const userOrders = user.orders;
         lokalStorage("set", "userOrders", userOrders);
@@ -108,7 +109,7 @@ export const userSlice = createSlice({
         };
 
         lokalStorage("set", "loggedUser", user);
-
+       state.loggedUser=user
         lokalStorage("set", "token", token);
       })
       .addCase(login.rejected, (state, action) => {

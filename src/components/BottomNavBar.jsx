@@ -34,19 +34,26 @@ export default function BottomNavBar() {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState("");
  const { isLoggedIn, loggedUser } = useSelector((state) => state.user);
+ const [userType, setUserType] = useState("")
 
- 
- const userType=loggedUser?.userType==="Restaurant"?"new-order":"published-orders";
 
   useEffect(() => {
     // Update the active tab state when the location pathname changes
     setActiveTab(location.pathname);
   }, [location.pathname]);
 
-  useEffect(() => {
-    
-  },[loggedUser])
-  
+ useEffect(() => {
+  if(isLoggedIn){
+    if(loggedUser.userType==="Restaurant"){
+      setUserType("new-order");
+    }else{
+ setUserType("published-orders");
+    }
+
+  }
+
+
+ },[isLoggedIn])
 
  
 
