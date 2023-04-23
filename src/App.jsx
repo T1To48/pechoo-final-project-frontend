@@ -9,7 +9,10 @@ import {
   PublishedOrders,
   Map,
   LandingPage,
-  ActiveUserOrders
+  ActiveUserOrders,
+  OrdersHistory,
+  ProfilePage
+
 } from "./pages/exportsIndex.js";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -62,8 +65,10 @@ useEffect(() => {
           <Route index element={<LandingPage/>} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
+          <Route path="profile-page" element={<ProfilePage />} />
           <Route path="active-user-orders" element={<ActiveUserOrders />} />
           <Route path="published-orders" element={<PublishedOrders />} />
+          <Route path="delivered-orders" element={<OrdersHistory />} />
           <Route path="map" element={<Map />} />
           <Route path="new-order" element={<PublishOrder />} />
           {/* <Route path="orders-list" element={<OrderCardsList />} /> */}

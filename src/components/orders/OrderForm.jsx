@@ -59,10 +59,10 @@ const OrderForm = () => {
 
   const submitOrder = (e) => {
     e.preventDefault();
-    setOrderDetails({
-        ...orderDetails,
-        readyTime:readyTime*60000,
-    })
+    // setOrderDetails({
+    //     ...orderDetails,
+    //     readyTime:readyTime,
+    // })
     dispatch(publishOrder(orderDetails));
   };
 

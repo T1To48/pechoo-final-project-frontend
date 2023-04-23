@@ -36,7 +36,7 @@ export const userOrdersByStatus = async (status) => {
     headers: { Authorization: `Bearer ${getToken()}` },
   };
   let response = await axios.request(reqOptions);
-
+console.log(response.data)
   return response.data;
 };
 

@@ -85,7 +85,7 @@ export default function BottomNavBar() {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={() => navigate("/published-orders")}
+              onClick={() => navigate("/delivered-orders")}
             >
               <HistoryRoundedIcon fontSize="large" />
             </IconButton>
@@ -102,7 +102,7 @@ export default function BottomNavBar() {
               <MapIcon fontSize="large" />
             </IconButton>
             <IconButton color="inherit">
-              <PersonRoundedIcon fontSize="large" />
+              <PersonRoundedIcon onClick={() => navigate("/profile-page")} fontSize="large" />
             </IconButton>
           </>
         ) : (

@@ -67,8 +67,6 @@ if(isError|| !publishedOrders||publishedOrders.length===0)return <h1>No publishe
     <div>
       {publishedOrders.map((order)=>{
         const timeLeft=((((order.createdAtMS/1)+(order.readyTime/1*60*1000))-(Date.now()/1))/1000);
-        
-
         return( <OrderCard 
           key={order.id}
       seconds={timeLeft}

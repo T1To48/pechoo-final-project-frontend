@@ -53,7 +53,7 @@ export default function OrderCard({
           id="panel2d-header"
         >
           <Typography variant="h5" component="div">
-            {orderStatus === "Published" && seconds > 0 && (
+            {seconds > 0 && (
               <Timer seconds={seconds} />
             )}
             {orderStatus === "Ready For Delivery" && (
@@ -64,15 +64,8 @@ export default function OrderCard({
               </div>
             )}
 
-            {/* { routeInfo&& ( 
-              <>
-              <Timer seconds={seconds} />
-              {routeInfo.travelDistance}
-              </>
-              
-            )} */}
+         
 
-            {/* {orderStatus === "On The Way" && routeInfo&& `${routeInfo.travelDistance},${routeInfo.travelDurationLive}`} */}
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ display: "flex", justifyContent: "center" }}>

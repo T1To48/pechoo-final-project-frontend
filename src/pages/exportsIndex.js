@@ -5,7 +5,8 @@ import PublishedOrders from "./PublishedOrders.jsx";
 import Map from "./Map.jsx";
 import LandingPage from "./LandingPage.jsx";
 import ActiveUserOrders from "./ActiveUserOrders.jsx";
-
+import OrdersHistory from "./OrdersHistory.jsx";
+import ProfilePage from "./ProfilePage.jsx";
 
 export {
   LandingPage,
@@ -15,4 +16,6 @@ export {
   PublishedOrders,
   Map,
   ActiveUserOrders,
+  OrdersHistory,
+  ProfilePage
 };

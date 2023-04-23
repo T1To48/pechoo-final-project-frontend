@@ -86,10 +86,13 @@ const ActiveOrdersDriver = () => {
         {userOrders
           .filter((order) => order.orderStatus !== "Delivered")
           .map((order) => {
+        const timeLeft=((((order.createdAtMS/1)+(order.readyTime/1*60*1000))-(Date.now()/1))/1000);
+
             return (
               <OrderCard
                 key={order.id}
                 customerName={order.customerName}
+                seconds={timeLeft}
                 customerAddress={order.customerAddress}
                 customerPhone={order.customerPhone}
                 price={order.price}
