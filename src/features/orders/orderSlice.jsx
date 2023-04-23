@@ -125,7 +125,7 @@ export const getPublishedOrders = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const Orders= await publishedOrders();
-      let published_Orders=Orders.data.length>0?action.payload:[];
+      let published_Orders=Orders.data.length>0?Orders.data:[];
       return published_Orders;
 
 
