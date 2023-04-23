@@ -79,8 +79,7 @@ const ActiveOrdersDriver = () => {
     return () => {
       clearInterval(setDriverLocation);
     };
-  }, [isSuccess]);
-
+  }, []);
   if (userOrders.length > 0)
     return (
       <div>
@@ -127,7 +126,7 @@ const ActiveOrdersDriver = () => {
       </div>
     );
 
-  if (isError) return <h1>no userOrders in the ordersSlice {errorMessage}</h1>;
+  
 };
 
 export default ActiveOrdersDriver;

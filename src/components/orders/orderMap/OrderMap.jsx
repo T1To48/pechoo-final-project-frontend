@@ -67,7 +67,7 @@ const OrderMap = ({ end }) => {
         justifyContent: "center",
         background:`url(${mapUrl})no-repeat center center fixed`,
         height:"50%",
-        width:"99%"
+        width:"100%"
       }}
     >
       <img

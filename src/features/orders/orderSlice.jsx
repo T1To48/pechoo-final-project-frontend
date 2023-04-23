@@ -108,6 +108,7 @@ export const get_User_Orders_By_Status = createAsyncThunk(
       }
       return requested_User_Orders.data;
     } catch (error) {
+      console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",error)
       const message =
         (error.response &&
           error.response.data &&
@@ -124,10 +125,10 @@ export const getPublishedOrders = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const Orders= await publishedOrders();
+      let published_Orders=Orders.data.length>0?action.payload:[];
+      return published_Orders;
 
-      if (Orders.data.length > 0) {
-        return Orders.data;
-      }
+
     } catch (error) {
 const message =
         (error.response &&
@@ -197,7 +198,7 @@ export const orderSlice = createSlice({
       .addCase(getPublishedOrders.fulfilled, (state, action) => {
         state.isLoading = false;
         state.published_orders_success = true;
-
+        
         lokalStorage("set","publishedOrders",action.payload);
 
       })

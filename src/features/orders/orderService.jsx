@@ -3,6 +3,8 @@ import { lokalStorage } from "../importsIndex.jsx";
 
 const token = lokalStorage("get", "token");
 const loggedUser = lokalStorage("get", "loggedUser");
+const getLoggedUser=()=>lokalStorage("get", "loggedUser");
+const getToken =()=> lokalStorage("get", "token");
 
 const API = {
   baseUrl: "https://pechoo-server.onrender.com/delivery-app/v1/order",
@@ -29,9 +31,9 @@ export const newOrder = async (orderData) => {
 
 export const userOrdersByStatus = async (status) => {
   let reqOptions = {
-    url:status==="all" ?`${baseUrl}/user-id/${loggedUser.id}`:`${baseUrl}/user-id/${loggedUser.id}?orderStatus=${status}`,
+    url:status==="all" ?`${baseUrl}/user-id/${getLoggedUser().id}`:`${baseUrl}/user-id/${loggedUser.id}?orderStatus=${status}`,
     method: "GET",
-    headers: { Authorization: headersList.Authorization },
+    headers: { Authorization: `Bearer ${getToken()}` },
   };
   let response = await axios.request(reqOptions);
 

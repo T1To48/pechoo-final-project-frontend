@@ -61,7 +61,7 @@ useEffect(() => {
 }, []);
 
 
-if(isError|| !publishedOrders)return <h1>No published orders yet, please be patient</h1>
+if(isError|| !publishedOrders||publishedOrders.length===0)return <h1>No published orders yet, please be patient</h1>
 
   return (
     <div>
