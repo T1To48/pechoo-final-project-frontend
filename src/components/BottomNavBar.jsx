@@ -31,16 +31,24 @@ const StyledFab = styled(Fab)({
 
 export default function BottomNavBar() {
   const location = useLocation();
+  const theme = useTheme();
   const [activeTab, setActiveTab] = useState("");
+ const { isLoggedIn, loggedUser } = useSelector((state) => state.user);
+
+ 
+ const userType=loggedUser?.userType==="Restaurant"?"new-order":"published-orders";
 
   useEffect(() => {
     // Update the active tab state when the location pathname changes
     setActiveTab(location.pathname);
   }, [location.pathname]);
 
-  const theme = useTheme();
+  useEffect(() => {
+    
+  },[loggedUser])
+  
 
-  const { isLoggedIn, loggedUser } = useSelector((state) => state.user);
+ 
 
   const navigate = useNavigate();
   return (
@@ -79,7 +87,7 @@ export default function BottomNavBar() {
             </IconButton>
 
             <div style={{width:"10px"}} />
-            <StyledFab  onClick={() => navigate("/published-orders")} color="primary" sx={{ marginTop: "10px" }}>
+            <StyledFab  onClick={() => navigate(`/${userType}`)} color="primary" sx={{ marginTop: "10px" }}>
               <DeliveryDiningRoundedIcon fontSize="large" />
             </StyledFab>
 
