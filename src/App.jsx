@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import SharedLayout from "./components/SharedLayouts.jsx";
@@ -8,7 +8,8 @@ import {
   PublishOrder,
   PublishedOrders,
   Map,
-  LandingPage
+  LandingPage,
+  ActiveUserOrders
 } from "./pages/exportsIndex.js";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -20,21 +21,39 @@ import { lokalStorage } from "./features/importsIndex.jsx";
 import { getPublishedOrders } from "./features/orders/orderSlice.jsx";
 function App() {
   const dispatch = useDispatch();
-
+const [userLocation, setUserLocation] = useState("")
   useEffect(() => {
     const user = lokalStorage("get", "loggedUser") || false;
 
     if (user && user.userType === "Driver") {
       const setDriverLocation = setInterval(() => {
         dispatch(fetchCurrentLocation());
-      }, 10000);
-      console.log("time interval app.jsx")
+        console.log("APP APP.jsx")
+        setUserLocation(lokalStorage("get", "currentLocation")||"")
+      }, 5000);
+      
       return () => {
         clearInterval(setDriverLocation);
       };
     }
-  }, []);
+  }, [userLocation]);
+useEffect(() => {
+    const handleScroll = () => {
+      // Check if the user has scrolled beyond the top of the page
+      if (window.scrollY < -50) {
+        // Refresh the page
+        window.location.reload();
+      } 
+    };
 
+    // Add event listener for scroll event
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
   return (
     <BrowserRouter>
       <Routes>
@@ -43,8 +62,9 @@ function App() {
           <Route index element={<LandingPage/>} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
+          <Route path="active-user-orders" element={<ActiveUserOrders />} />
           <Route path="published-orders" element={<PublishedOrders />} />
-          <Route path=":endCoords" element={<Map />} />
+          <Route path="map" element={<Map />} />
           <Route path="new-order" element={<PublishOrder />} />
           {/* <Route path="orders-list" element={<OrderCardsList />} /> */}
           {/* <Route path="landing" element={<Landing />} />

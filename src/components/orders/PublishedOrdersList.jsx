@@ -61,7 +61,7 @@ useEffect(() => {
 }, []);
 
 
-
+if(isError|| !publishedOrders)return <h1>No published orders yet, please be patient</h1>
 
   return (
     <div>
@@ -78,8 +78,10 @@ customerPhone = {order.customerPhone}
 price = {order.price}
 orderStatus ={order.orderStatus}
 coords={order.coords}
-routeButton={()=>navigate(`/${order.coords}`)}
-handleDriverAccept={()=>handleDriverAccept(order.id)}
+handleButton2={()=>{navigate(`/map`); lokalStorage("set","destination",order.coords)}}
+handleButton1={()=>handleDriverAccept(order.id)}
+textButton1="Accept"
+textButton2="Check Route"
 // routeInfo={order.routeInfo}
  />)})}
     </div>

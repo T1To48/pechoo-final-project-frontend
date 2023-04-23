@@ -100,6 +100,7 @@ export const getRouteInfo = createAsyncThunk(
       const { data } = response;
       console.log(data);
       if (data.statusDescription !== "OK") {
+        alert("nnn")
         throw new Error(data.errorDetails[0]);
       }
       const { estimatedTotal } = data.resourceSets[0];

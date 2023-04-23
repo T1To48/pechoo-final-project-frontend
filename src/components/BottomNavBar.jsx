@@ -12,6 +12,7 @@ import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import DeliveryDiningRoundedIcon from "@mui/icons-material/DeliveryDiningRounded";
 import { useTheme } from "@emotion/react";
 import HistoryRoundedIcon from "@mui/icons-material/HistoryRounded";
+import MapIcon from '@mui/icons-material/Map';
 import OnlinePredictionRoundedIcon from "@mui/icons-material/OnlinePredictionRounded";
 import InputRoundedIcon from "@mui/icons-material/InputRounded";
 import PinDropRoundedIcon from "@mui/icons-material/PinDropRounded";
@@ -73,16 +74,17 @@ export default function BottomNavBar() {
             >
               <HistoryRoundedIcon fontSize="large" />
             </IconButton>
-            <IconButton color="inherit" aria-label="open drawer">
-              <OnlinePredictionRoundedIcon />
+            <IconButton onClick={() => navigate("/active-user-orders")} color="inherit" aria-label="open drawer">
+              <OnlinePredictionRoundedIcon fontSize="large" />
             </IconButton>
 
-            <StyledFab color="primary" sx={{ marginTop: "10px" }}>
+            <div style={{width:"10px"}} />
+            <StyledFab  onClick={() => navigate("/published-orders")} color="primary" sx={{ marginTop: "10px" }}>
               <DeliveryDiningRoundedIcon fontSize="large" />
             </StyledFab>
 
             <IconButton color="inherit">
-              <BorderColorRoundedIcon fontSize="large" />
+              <MapIcon fontSize="large" />
             </IconButton>
             <IconButton color="inherit">
               <PersonRoundedIcon fontSize="large" />

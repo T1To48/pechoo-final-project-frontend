@@ -29,7 +29,7 @@ export const newOrder = async (orderData) => {
 
 export const userOrdersByStatus = async (status) => {
   let reqOptions = {
-    url: `${baseUrl}/user-id/${loggedUser.id}?orderStatus=${status}`,
+    url:status==="all" ?`${baseUrl}/user-id/${loggedUser.id}`:`${baseUrl}/user-id/${loggedUser.id}?orderStatus=${status}`,
     method: "GET",
     headers: { Authorization: headersList.Authorization },
   };
@@ -48,6 +48,19 @@ export const publishedOrders = async () => {
   let response = await axios.request(reqOptions);
   return response.data;
 };
+
+export const changeOrderDetails=async(orderId,toUpdate)=>{
+  let reqBody=JSON.stringify(toUpdate);
+  let reqOptions = {
+    url:`${baseUrl}/${orderId}`,
+    method:"PUT",
+    headers:headersList,
+    data:reqBody
+  }
+  let response= await axios.request(reqOptions);
+  console.log(response.data);
+return response.data;
+}
 
 
 export const  updateOrder_TOAccepted=(orderId)=>{
