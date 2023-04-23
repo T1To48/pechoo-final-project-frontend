@@ -69,7 +69,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.isLoggedIn = false;
       state.loggedUser = null;
-      lokalStorage.clear();
+      lokalStorage("clear");
     },
   },
   extraReducers: (builder) => {
@@ -120,5 +120,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { reset } = userSlice.actions;
+export const { reset,logout } = userSlice.actions;
 export default userSlice.reducer;

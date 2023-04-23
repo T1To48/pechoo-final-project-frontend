@@ -191,10 +191,9 @@ const Register = () => {
 };
 
 export default Register;
+
 // import * as React from 'react';
-// import Avatar from '@mui/material/Avatar';
 // import Button from '@mui/material/Button';
-// import CssBaseline from '@mui/material/CssBaseline';
 // import TextField from '@mui/material/TextField';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
@@ -221,43 +220,40 @@ export default Register;
 
 //   return (
 //       <Container component="main" maxWidth="xs">
-//         <CssBaseline />
 //         <Box
 //           sx={{
 //             marginTop: 8,
 //             display: 'flex',
 //             flexDirection: 'column',
 //             alignItems: 'center',
+//             backgroundColor:"white",
+//             padding:"2rem",
+//             borderRadius:"40px"
 //           }}
 //         >
-//           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-//             <LockOutlinedIcon />
-//           </Avatar>
+         
 //           <Typography component="h1" variant="h5">
 //             Sign up
 //           </Typography>
-//           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+//           <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
 //             <Grid container spacing={2}>
+              
 //               <Grid item xs={12} sm={6}>
 //                 <TextField
-//                   autoComplete="given-name"
-//                   name="firstName"
 //                   required
 //                   fullWidth
-//                   id="firstName"
-//                   label="First Name"
-//                   autoFocus
-                  
+//                   id="Name"
+//                   label="Name"
+//                   name="name"
 //                 />
 //               </Grid>
 //               <Grid item xs={12} sm={6}>
 //                 <TextField
 //                   required
 //                   fullWidth
-//                   id="lastName"
-//                   label="Last Name"
-//                   name="lastName"
-//                   autoComplete="family-name"
+//                   id="phone"
+//                   label="Phone Number"
+//                   name="phone"
 //                 />
 //               </Grid>
 //               <Grid item xs={12}>
@@ -267,9 +263,19 @@ export default Register;
 //                   id="email"
 //                   label="Email Address"
 //                   name="email"
-//                   autoComplete="email"
+                  
 //                 />
 //               </Grid>
+//               {/* <Grid item xs={12}>
+//                 <TextField
+//                   required
+//                   fullWidth
+//                   id="address"
+//                   label="Address"
+//                   name="address"
+                  
+//                 />
+//               </Grid> */}
 //               <Grid item xs={12}>
 //                 <TextField
 //                   required
@@ -278,15 +284,27 @@ export default Register;
 //                   label="Password"
 //                   type="password"
 //                   id="password"
-//                   autoComplete="new-password"
 //                 />
 //               </Grid>
-//               <Grid item xs={12}>
-//                 <FormControlLabel
-//                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-//                   label="I want to receive inspiration, marketing promotions and updates via email."
-//                 />
-//               </Grid>
+//               <label htmlFor="usertype">
+//            Register as:
+//            <select
+//              name="userType"
+//              label="hi"
+//             //  onChange={handleChange}
+//              defaultValue=""
+//              required
+//            >
+//              <option value="" disabled>
+//                Choose one:
+//              </option>
+//              <option value="Restaurant">Restaurant</option>
+//              <option value="Driver" >
+//                Driver
+//              </option>
+//            </select>
+//          </label>
+              
 //             </Grid>
 //             <Button
 //               type="submit"
@@ -305,7 +323,6 @@ export default Register;
 //             </Grid>
 //           </Box>
 //         </Box>
-//         <Copyright label="fgfg" sx={{ mt: 5 }} />
 //       </Container>
 //   );
 // }

@@ -101,8 +101,8 @@ export default function BottomNavBar() {
             <IconButton color="inherit">
               <MapIcon fontSize="large" />
             </IconButton>
-            <IconButton color="inherit">
-              <PersonRoundedIcon onClick={() => navigate("/profile-page")} fontSize="large" />
+            <IconButton onClick={() => navigate("/profile-page")} fontSize="large" color="inherit">
+              <PersonRoundedIcon  />
             </IconButton>
           </>
         ) : (

@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../features/users/userSlice.jsx";
 import {lokalStorage} from "../utils/helpers/lokalStorage.jsx"
 
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-
+import { Button } from "@mui/material";
 const ProfilePage = () => {
+const dispatch=useDispatch();
+const navigate=useNavigate();
+
+  const user =lokalStorage("get","loggedUser")
+
   const [ProfileDetails, setProfileDetails] = useState({
     name: "",
     email: "",
@@ -15,9 +23,14 @@ const ProfilePage = () => {
     userType:'',
   })
   const{name,email,phone,address,userType}=ProfileDetails
-
+const avatarChars=()=>{
+  if(name){
+     const splitName=name.split(" ");
+  return `${splitName[0][0]}${splitName[1][0]}`.toUpperCase()
+  }
+ 
+}
 useEffect(() => {
-const user =lokalStorage("get","loggedUser")
 setProfileDetails({
   name:user.name,
   email:user.email,
@@ -26,83 +39,85 @@ setProfileDetails({
   userType:user.userType
 })
 },[]) 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const handleChange = (e) => {
+    setProfileDetails({
+      ...ProfileDetails,
+      [e.target.name]:e.target.value
+    });
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-  };
-
-  const handleAddressChange = (e) => {
-    setAddress(e.target.value);
-  };
-
-  const handleUserRoleChange = (e) => {
-    setUserRole(e.target.value);
-  };
+const handleLogout=()=>{
+  dispatch(logout())
+  navigate("/register")
+}
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center"  }}>
-      <div style={{ padding: "16px", maxWidth: "400px", width: "100%" ,backgroundColor:"white",}}>
+      <div style={{ padding: "16px", maxWidth: "400px", width: "100%" ,backgroundColor:"white",borderRadius:"40px",margin:"2rem"}}>
         <Grid container justifyContent="center">
-          <Avatar src="/path/to/profile-picture.jpg" alt="Profile Picture" style={{ width: "100px", height: "100px",marginBottom:"2rem" }} />
+          <Avatar  children={avatarChars()} sx={{backgroundColor:"#B2DB5B", width: "100px", height: "100px",marginBottom:"2rem",fontSize:"2.3rem",fontWeight:"600" }} />
         </Grid>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="div" align="center" gutterBottom>
           <TextField
             label="Name"
+            name="name"
             value={name}
-            onChange={handleNameChange}
+            onChange={handleChange}
             fullWidth
-            InputProps={{ style: { borderBottom: "1px solid #000" } }}
+           sx={{ borderBottom: "1px solid #000" } }
           />
         </Typography>
-        <Typography align="center" variant="div" color="textSecondary" gutterBottom>
-          Email:
+        <br/><br/>
+        <Typography align="center" variant="div"  color="textSecondary" gutterBottom>
           <TextField
             label="Email"
+            name="email"
             type="email"
             value={email}
-            onChange={handleEmailChange}
+            onChange={handleChange}
             fullWidth
-            InputProps={{ style: { borderBottom: "1px solid #000" } }}
+             sx={{ borderBottom: "1px solid #000" } }
           />
         </Typography>
-        <Typography align="center" color="textSecondary" gutterBottom>
-          Phone:
+        <br/><br/>
+        <Typography align="center"  variant="div"color="textSecondary" gutterBottom>
           <TextField
             label="Phone"
-            type="tel"
-            value={phone}
-            onChange={handlePhoneChange}
+            name="phone"
+            type="text"
+            value={`0${phone}`}
+            onChange={handleChange}
             fullWidth
-            InputProps={{ style: { borderBottom: "1px solid #000" } }}
+             sx={{ borderBottom: "1px solid #000" } }
           />
-        </Typography>
-        <Typography align="center" color="textSecondary" gutterBottom>
-          Address:
+        </Typography><br/><br/>
+        {user.userType==="Restaurant"&&(<><Typography align="center"  variant="div" color="textSecondary" gutterBottom>
           <TextField
             label="Address"
+            name="address"
             value={address}
-            onChange={handleAddressChange}
+            onChange={handleChange}
             fullWidth
-            InputProps={{ style: { borderBottom: "1px solid #000" } }}
+             sx={{ borderBottom: "1px solid #000" } }
           />
-        </Typography>
-        <Typography align="center" color="textSecondary" gutterBottom>
-          User Role:
+        </Typography><br/><br/></>)}
+        
+        <Typography align="center" variant="div" color="textSecondary" gutterBottom>
           <TextField
             label="User Role"
+            name="userType"
             value={userType}
-            onChange={handleUserRoleChange}
+            onChange={handleChange}
             fullWidth
-            InputProps={{ style: { borderBottom: "1px solid #000" } }}
+             sx={{ borderBottom: "1px solid #000" } }
           />
         </Typography>
+        <br/><br/>
+        <Typography align="center" color="textSecondary" gutterBottom>
+
+        <Button variant="contained" onClick={handleLogout}> Logout</Button>
+        </Typography>
+
       </div>
     </div>
   );
