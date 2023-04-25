@@ -1,4 +1,9 @@
 import React, { useState,useEffect, useRef } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; 
+
+import { verifyCodeByEmail } from "../features/users/userSlice.jsx";
+
 import {
   Link,
   Button,
@@ -12,7 +17,10 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
-const EmailVerfication = () => {
+
+const EmailVerfication = ({registerEmail}) => {
+    const dispatch = useDispatch();
+    const navigate= useNavigate();
   const inputRefs = useRef([]);
   const [typed_code, setTyped_code] = useState({
     digit1:0,
@@ -24,16 +32,20 @@ const EmailVerfication = () => {
   const handleInputChange = (e, index) => {
     const inputName=e.target.name;
     const inputValue = e.target.value;
+    setTyped_code({
+        ...typed_code,
+        [inputName]: inputValue,
+    })
     if (inputValue.length === 1 && index < 3) {
       inputRefs.current[index + 1].focus();
     }
     if (inputValue.length < 1 && index > 0) {
       inputRefs.current[index - 1].focus();
     }
-    setTyped_code({
-        ...typed_code,
-        [inputName]: inputValue,
-    })
+    if(inputName==="digit4"){
+        dispatch(verifyCodeByEmail(registerEmail))
+    }
+    
   };
 
 useEffect(() => {
@@ -73,6 +85,7 @@ useEffect(() => {
                 variant="outlined"
                 inputProps={{ maxLength: 1 }}
                 sx={{ width: "4rem", textAlign: "center" }}
+                value={typed_code[digit]}
                 name={digit}
                 onChange={(e) => handleInputChange(e, index)}
               />

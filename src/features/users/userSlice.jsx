@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { registerUser, loginUser } from "./userService.jsx";
+import { registerUser, loginUser, sendVerifyCode } from "./userService.jsx";
 import { lokalStorage } from "../importsIndex.jsx";
 
 const loggedUser = lokalStorage("get", "loggedUser");
@@ -10,8 +10,28 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  isLoggedIn: loggedUser ?true:false,
+  isLoggedIn: loggedUser ? true : false,
+  verifyCode:"",
 };
+
+export const verifyCodeByEmail = createAsyncThunk(
+  "user/verifyCodeByEmail",
+  async (userEmail, thunkAPI) => {
+    try {
+      const response = await sendVerifyCode(userEmail);
+      const CODE = response.data.verficationCode;
+      return CODE;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const register = createAsyncThunk(
   "user/register",
@@ -61,11 +81,14 @@ export const userSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.isLoading = false;
+    
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
     },
-    
+    resetVerifyCode:(state)=>{
+      state.verifyCode=""
+    },
     logout: (state) => {
       state.isLoggedIn = false;
       state.loggedUser = null;
@@ -74,17 +97,25 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(verifyCodeByEmail.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(verifyCodeByEmail.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(verifyCodeByEmail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.verifyCode = `${action.payload}`;
+      })
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        // if (action.payload.message) {
-        //   state.message = action.payload.message;
-        //   state.isError = true;
-        //   return;
-        // }
+       
         state.isSuccess = true;
       })
       .addCase(register.rejected, (state, action) => {
@@ -99,7 +130,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isLoggedIn = true;
-        
+
         let { token, user } = action.payload;
         const userOrders = user.orders;
         lokalStorage("set", "userOrders", userOrders);
@@ -109,7 +140,7 @@ export const userSlice = createSlice({
         };
 
         lokalStorage("set", "loggedUser", user);
-       state.loggedUser=user
+        state.loggedUser = user;
         lokalStorage("set", "token", token);
       })
       .addCase(login.rejected, (state, action) => {
@@ -120,5 +151,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { reset,logout } = userSlice.actions;
+export const { reset,resetVerifyCode, logout } = userSlice.actions;
 export default userSlice.reducer;

@@ -33,7 +33,7 @@ const LandingPage = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} align="center">
             <Typography variant="h2" component="h1" gutterBottom>
-              Welcome to FoodEase
+              Welcome to Pechoo
             </Typography>
             <Typography variant="h5" component="p" gutterBottom>
               Making Food Delivery Easier
