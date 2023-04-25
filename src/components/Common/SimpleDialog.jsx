@@ -38,7 +38,7 @@ export default function SimpleDialog({
           <Typography variant="div" id="alert-dialog-slide-description">
             {dialogText}
           </Typography>
-        </DialogContent>
+          </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog}>Cancel</Button>
           {addressName&&<Button
