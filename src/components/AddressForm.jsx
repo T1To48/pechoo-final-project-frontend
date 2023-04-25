@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import MyLocationRoundedIcon from '@mui/icons-material/MyLocationRounded';
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCurrentLocation,
@@ -6,6 +7,7 @@ import {
   getAddressByString,
   resetBing,
 } from "../features/BingMapsApi/bingSlice.jsx";
+import { IconButton, Typography,Grid,TextField, Button,Box } from "@mui/material";
 
 const AddressForm = () => {
   const [fullAddress, setFullAddress] = useState({
@@ -33,10 +35,11 @@ const AddressForm = () => {
     dispatch(getAddressByCoords(currentLocation));
 
   };
-  const findAddress = async (e) => {
-    // if (e.target.value === "") {
-    //   return;
-    // }
+  const checkAddress = async (e) => {
+    e.preventDefault();
+    if (e.target.value === "") {
+      return;
+    }
     if (city) {
       dispatch(getAddressByString(fullAddress));
     }
@@ -65,7 +68,7 @@ const AddressForm = () => {
   }, []);
 
   const changeAddress = (e) => {
-    e.preventDefault();
+    
 
     dispatch(resetBing());
     dispatch(fetchCurrentLocation());
@@ -82,34 +85,64 @@ const AddressForm = () => {
     );
   }
   return (
-    <>
-      <button onClick={getCurrentAddress}>use Current Location</button>
-      <input
-        type="text"
+   <>
+   <Box variant="div" component="form" onSubmit={checkAddress} >
+             <Grid container spacing={2} sx={{
+            // mt: 0,
+            // display: "flex",
+            // flexDirection: "column",
+            // alignItems: "center",
+            bgcolor: "white",
+            p: "2rem",
+            borderRadius: "40px",
+          }}>
+              <Grid item xs={12}  >
+                <Button variant="contained" onClick={getCurrentAddress} > <MyLocationRoundedIcon/> &nbsp; Current Location </Button>
+        
+              </Grid>
+              OR
+              <Grid item xs={12}>
+                <TextField
+                  label="Street Number"
         name="streetNumber"
         value={streetNumber}
         placeholder="Street Number"
         onChange={handleChange}
         required
-      />
-      <input
-        type="text"
-        name="street"
-        value={street}
-        placeholder="Street"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                type="text"
+                name="street"
+                value={street}
+                placeholder="Street"
+                onChange={handleChange}
+                required
+                  label="Street"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="City"
+                  type="text"
         name="city"
         value={city}
         placeholder="City"
         onChange={handleChange}
         required
-      />
-      <button onClick={findAddress}>Find Address</button>
-    </>
+                />
+              </Grid>
+<Button variant="contained" type="submit">Check Address</Button >
+              </Grid>
+
+  
+     
+      
+   </Box>
+        
+      </>
+     
   );
 };
 

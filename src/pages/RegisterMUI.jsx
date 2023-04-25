@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
+import { resetBing } from "../features/BingMapsApi/bingSlice.jsx";
 import { register, reset } from "../features/users/userSlice.jsx";
 import AddressForm from "../components/AddressForm.jsx";
 
@@ -40,10 +41,13 @@ export default function Register() {
   const dispatch = useDispatch();
 
   const { addressName, addressCoords } = useSelector((state) => state.bing);
+  
+  
   useEffect(() => {
     setRegisterDetails({
       ...registerDetails,
       coords: addressCoords,
+      address:addressName,
     });
   }, [addressName, addressCoords]);
 
@@ -75,11 +79,14 @@ export default function Register() {
   }, [loggedUser, isError, isSuccess, message]);
 
   const handleChange = (e) => {
+if (e.target.value === "Restaurant") {setIsDialogOpen(true);}
     setRegisterDetails({
       ...registerDetails,
       [e.target.name]: e.target.value,
     });
+    
   };
+  
   useEffect(() => console.log(registerDetails), [registerDetails]);
 
   const handleSubmit = async (e) => {
@@ -91,15 +98,16 @@ export default function Register() {
     dispatch(register(registerDetails));
   };
 
-  
+ 
   useEffect(() => {
-    if (userType === "Restaurant") {
-      setIsDialogOpen(true);
-    }
+    // if (userType === "Restaurant") {
+    //   setIsDialogOpen(true);
+    // }
     if (userType === "Driver") {
       setRegisterDetails({
         ...registerDetails,
         address: "",
+        coords:"",
       });
     }
   }, [userType]);
@@ -112,10 +120,15 @@ export default function Register() {
     <>
       <SimpleDialog
         isDialogOpen={isDialogOpen}
-        closeDialog={() => setIsDialogOpen(false)}
+        closeDialog={() =>{ setIsDialogOpen(false); setRegisterDetails({
+          ...registerDetails,
+          userType:"",
+          address: "",
+        coords:"",
+        });dispatch(resetBing())} }
         dialogTitle="Restaurant Address"
         dialogText={<AddressForm />}
-        confirmFunction={() => console.log("confirmfunction")}
+        confirmFunction={() => {console.log("confirmfunction"); setIsDialogOpen(false)}}
       />
       <Container
         component="main"
@@ -192,12 +205,13 @@ export default function Register() {
                     name={targetName}
                     value={userType}
                     label="I am"
+                    
                     onChange={handleChange}
                     required
                   >
                     {typeOfUser.map((user) => {
                       return (
-                        <MenuItem key={user} value={user}>
+                        <MenuItem  key={user} value={user}>
                           {user}
                         </MenuItem>
                       );

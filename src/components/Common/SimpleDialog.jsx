@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
+
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -6,6 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import { Typography } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -18,6 +21,8 @@ export default function SimpleDialog({
   dialogText,
   confirmFunction,
 }) {
+
+  const {addressName}=useSelector(state=>state.bing)
   return (
     <div>
       <Dialog
@@ -26,24 +31,26 @@ export default function SimpleDialog({
         keepMounted
         onClose={closeDialog}
         aria-describedby="alert-dialog-slide-description"
+        
       >
         <DialogTitle>{`${dialogTitle}`}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
+          <Typography variant="div" id="alert-dialog-slide-description">
             {dialogText}
-          </DialogContentText>
+          </Typography>
           {/*  */}
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog}>Cancel</Button>
-          <Button
+          {addressName&&<Button
             onClick={() => {
               confirmFunction();
-              closeDialog();
+              
+              // closeDialog();
             }}
           >
             Confirm
-          </Button>
+          </Button>}
         </DialogActions>
       </Dialog>
     </div>
