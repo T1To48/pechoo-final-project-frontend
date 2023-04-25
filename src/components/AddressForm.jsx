@@ -87,20 +87,23 @@ const AddressForm = () => {
   return (
    <>
    <Box variant="div" component="form" onSubmit={checkAddress} >
-             <Grid container spacing={2} sx={{
-            // mt: 0,
-            // display: "flex",
-            // flexDirection: "column",
-            // alignItems: "center",
+             <Grid container spacing={1.5} sx={{
+            mt: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             bgcolor: "white",
-            p: "2rem",
-            borderRadius: "40px",
+            p: "0 2rem",
+            
           }}>
               <Grid item xs={12}  >
                 <Button variant="contained" onClick={getCurrentAddress} > <MyLocationRoundedIcon/> &nbsp; Current Location </Button>
         
               </Grid>
-              OR
+              <Grid sx={{fontWeight:700}}item xs={12}  >
+              
+              OR 
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   label="Street Number"
@@ -133,12 +136,11 @@ const AddressForm = () => {
         required
                 />
               </Grid>
+               <Grid item xs={12}>
 <Button variant="contained" type="submit">Check Address</Button >
               </Grid>
+              </Grid>
 
-  
-     
-      
    </Box>
         
       </>

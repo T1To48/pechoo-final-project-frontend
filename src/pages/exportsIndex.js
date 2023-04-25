@@ -7,7 +7,7 @@ import LandingPage from "./LandingPage.jsx";
 import ActiveUserOrders from "./ActiveUserOrders.jsx";
 import OrdersHistory from "./OrdersHistory.jsx";
 import ProfilePage from "./ProfilePage.jsx";
-
+import RegisterMUI from "./RegisterMUI.jsx";
 export {
   LandingPage,
   Register,
@@ -17,5 +17,6 @@ export {
   Map,
   ActiveUserOrders,
   OrdersHistory,
-  ProfilePage
+  ProfilePage,
+  RegisterMUI
 };

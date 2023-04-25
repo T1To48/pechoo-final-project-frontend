@@ -8,12 +8,9 @@ import AddressForm from "../components/AddressForm.jsx";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import SimpleDialog from "../components/Common/SimpleDialog.jsx";
@@ -22,7 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function Register() {
+export default function RegisterMUI() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [registerDetails, setRegisterDetails] = useState({
     name: "",
@@ -41,13 +38,12 @@ export default function Register() {
   const dispatch = useDispatch();
 
   const { addressName, addressCoords } = useSelector((state) => state.bing);
-  
-  
+
   useEffect(() => {
     setRegisterDetails({
       ...registerDetails,
       coords: addressCoords,
-      address:addressName,
+      address: addressName,
     });
   }, [addressName, addressCoords]);
 
@@ -79,14 +75,15 @@ export default function Register() {
   }, [loggedUser, isError, isSuccess, message]);
 
   const handleChange = (e) => {
-if (e.target.value === "Restaurant") {setIsDialogOpen(true);}
+    if (e.target.value === "Restaurant") {
+      setIsDialogOpen(true);
+    }
     setRegisterDetails({
       ...registerDetails,
       [e.target.name]: e.target.value,
     });
-    
   };
-  
+
   useEffect(() => console.log(registerDetails), [registerDetails]);
 
   const handleSubmit = async (e) => {
@@ -98,16 +95,12 @@ if (e.target.value === "Restaurant") {setIsDialogOpen(true);}
     dispatch(register(registerDetails));
   };
 
- 
   useEffect(() => {
-    // if (userType === "Restaurant") {
-    //   setIsDialogOpen(true);
-    // }
     if (userType === "Driver") {
       setRegisterDetails({
         ...registerDetails,
         address: "",
-        coords:"",
+        coords: "",
       });
     }
   }, [userType]);
@@ -120,21 +113,28 @@ if (e.target.value === "Restaurant") {setIsDialogOpen(true);}
     <>
       <SimpleDialog
         isDialogOpen={isDialogOpen}
-        closeDialog={() =>{ setIsDialogOpen(false); setRegisterDetails({
-          ...registerDetails,
-          userType:"",
-          address: "",
-        coords:"",
-        });dispatch(resetBing())} }
+        closeDialog={() => {
+          setIsDialogOpen(false);
+          setRegisterDetails({
+            ...registerDetails,
+            userType: "",
+            address: "",
+            coords: "",
+          });
+          dispatch(resetBing());
+        }}
         dialogTitle="Restaurant Address"
         dialogText={<AddressForm />}
-        confirmFunction={() => {console.log("confirmfunction"); setIsDialogOpen(false)}}
+        confirmFunction={() => {
+          console.log("confirmfunction");
+          setIsDialogOpen(false);
+        }}
       />
       <Container
         component="main"
         maxWidth="xs"
-        sx={{ width: "95%" }}
-        elevation={20}
+        sx={{ width: "95%"}}
+        elevation="20"
       >
         <Box
           sx={{
@@ -145,6 +145,7 @@ if (e.target.value === "Restaurant") {setIsDialogOpen(true);}
             bgcolor: "white",
             p: "2rem",
             borderRadius: "40px",
+             boxShadow: 24
           }}
         >
           <Typography component="h1" variant="h5">
@@ -205,13 +206,12 @@ if (e.target.value === "Restaurant") {setIsDialogOpen(true);}
                     name={targetName}
                     value={userType}
                     label="I am"
-                    
                     onChange={handleChange}
                     required
                   >
                     {typeOfUser.map((user) => {
                       return (
-                        <MenuItem  key={user} value={user}>
+                        <MenuItem key={user} value={user}>
                           {user}
                         </MenuItem>
                       );
@@ -219,13 +219,6 @@ if (e.target.value === "Restaurant") {setIsDialogOpen(true);}
                   </Select>
                 </FormControl>
               </Grid>
-
-              {/* {userType === "Restaurant" && (
-              <label htmlFor={targetName}>
-                Address:
-                <AddressForm />
-              </label>
-            )} */}
             </Grid>
             <Button
               type="submit"

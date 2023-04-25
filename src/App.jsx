@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import SharedLayout from "./components/SharedLayouts.jsx";
 import {
-  Register,
+  // Register,
+  RegisterMUI,
   Login,
   PublishOrder,
   PublishedOrders,
@@ -14,7 +15,6 @@ import {
   ProfilePage
 
 } from "./pages/exportsIndex.js";
-import RegisterMUI from "./pages/RegisterMUI.jsx"
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCurrentLocation,
@@ -63,7 +63,8 @@ useEffect(() => {
         <Route path="/" element={<SharedLayout />}>
           {/* <Route index element={<CounterReduxTest/>} /> */}
           <Route index element={<LandingPage/>} />
-          <Route path="register" element={<Register />} />
+          <Route path="register" element={<RegisterMUI />} />
+          {/* <Route path="register" element={<Register />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="profile-page" element={<ProfilePage />} />
           <Route path="active-user-orders" element={<ActiveUserOrders />} />
@@ -71,7 +72,6 @@ useEffect(() => {
           <Route path="delivered-orders" element={<OrdersHistory />} />
           <Route path="map" element={<Map />} />
           <Route path="new-order" element={<PublishOrder />} />
-          <Route path="mui-register" element={<RegisterMUI />} />
           {/* <Route path="orders-list" element={<OrderCardsList />} /> */}
           {/* <Route path="landing" element={<Landing />} />
             
