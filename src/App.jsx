@@ -14,7 +14,7 @@ import {
   ProfilePage
 
 } from "./pages/exportsIndex.js";
-
+import RegisterMUI from "./pages/RegisterMUI.jsx"
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCurrentLocation,
@@ -71,6 +71,7 @@ useEffect(() => {
           <Route path="delivered-orders" element={<OrdersHistory />} />
           <Route path="map" element={<Map />} />
           <Route path="new-order" element={<PublishOrder />} />
+          <Route path="mui-register" element={<RegisterMUI />} />
           {/* <Route path="orders-list" element={<OrderCardsList />} /> */}
           {/* <Route path="landing" element={<Landing />} />
             

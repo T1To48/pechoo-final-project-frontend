@@ -34,9 +34,9 @@ const AddressForm = () => {
 
   };
   const findAddress = async (e) => {
-    if (e.target.value === "") {
-      return;
-    }
+    // if (e.target.value === "") {
+    //   return;
+    // }
     if (city) {
       dispatch(getAddressByString(fullAddress));
     }
@@ -106,9 +106,9 @@ const AddressForm = () => {
         value={city}
         placeholder="City"
         onChange={handleChange}
-        onBlur={findAddress}
         required
       />
+      <button onClick={findAddress}>Find Address</button>
     </>
   );
 };

@@ -10,7 +10,7 @@ import {
 } from "../../features/orders/orderSlice.jsx";
 
 
-import OrderStatusDialog from "../Common/OrderStatusDialog.jsx";
+import SimpleDialog from "../Common/SimpleDialog.jsx";
 import OrderCard from "./orderCard/OrderCard.jsx";
 
 const ActiveOrdersRestaurant = () => {
@@ -104,7 +104,7 @@ const ActiveOrdersRestaurant = () => {
             );
           })}
 
-        <OrderStatusDialog
+        <SimpleDialog
           isDialogOpen={openDialog}
           closeDialog={() => setOpenDialog(false)}
           dialogTitle={dialogDetails.dialogTitle}

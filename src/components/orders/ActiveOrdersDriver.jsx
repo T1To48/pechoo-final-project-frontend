@@ -14,7 +14,7 @@ import {
   resetBing,
 } from "../../features/BingMapsApi/bingSlice.jsx";
 
-import OrderStatusDialog from "../Common/OrderStatusDialog.jsx";
+import SimpleDialog from "../Common/SimpleDialog.jsx";
 import OrderCard from "./orderCard/OrderCard.jsx";
 
 const ActiveOrdersDriver = () => {
@@ -111,7 +111,7 @@ const ActiveOrdersDriver = () => {
             );
           })}
 
-        <OrderStatusDialog
+        <SimpleDialog
           isDialogOpen={openDialog}
           closeDialog={() => setOpenDialog(false)}
           dialogTitle={dialogDetails.dialogTitle}

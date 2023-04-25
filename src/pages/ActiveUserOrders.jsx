@@ -5,11 +5,11 @@ import { lokalStorage } from '../features/importsIndex.jsx';
 
 const ActiveUserOrders = () => {
 
-  const loggedUserType=()=>lokalStorage("get",loggedUser).userType;
+  const loggedUserType=()=>lokalStorage("get","loggedUser").userType;
 
   return (
     <div>
-      {loggedUserType==="Driver"?<ActiveOrdersDriver/>:<ActiveOrdersRestaurant/>}
+      {loggedUserType()==="Driver"?<ActiveOrdersDriver/>:<ActiveOrdersRestaurant/>}
         
     </div>
   )
