@@ -4,20 +4,23 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { resetBing } from "../features/BingMapsApi/bingSlice.jsx";
 import { register, reset } from "../features/users/userSlice.jsx";
-import AddressForm from "../components/AddressForm.jsx";
 
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import AddressForm from "../components/AddressForm.jsx";
 import SimpleDialog from "../components/Common/SimpleDialog.jsx";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+
+import {
+  Link,
+  Button,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 
 export default function RegisterMUI() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -133,7 +136,7 @@ export default function RegisterMUI() {
       <Container
         component="main"
         maxWidth="xs"
-        sx={{ width: "95%"}}
+        sx={{ width: "95%" }}
         elevation="20"
       >
         <Box
@@ -145,7 +148,7 @@ export default function RegisterMUI() {
             bgcolor: "white",
             p: "2rem",
             borderRadius: "40px",
-             boxShadow: 24
+            boxShadow: 24,
           }}
         >
           <Typography component="h1" variant="h5">
@@ -226,12 +229,12 @@ export default function RegisterMUI() {
               variant="contained"
               sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8 }}
             >
-              Sign Up
+              Register
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                <Link onClick={() => navigate("/login")}>
+                  Already have an account? Login
                 </Link>
               </Grid>
             </Grid>

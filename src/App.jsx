@@ -22,6 +22,7 @@ import {
 } from "./features/BingMapsApi/bingSlice.jsx";
 import { lokalStorage } from "./features/importsIndex.jsx";
 import { getPublishedOrders } from "./features/orders/orderSlice.jsx";
+import EmailVerfication from "./pages/EmailVerfication.page.jsx";
 function App() {
   const dispatch = useDispatch();
 const [userLocation, setUserLocation] = useState("")
@@ -71,6 +72,8 @@ useEffect(() => {
           <Route path="published-orders" element={<PublishedOrders />} />
           <Route path="delivered-orders" element={<OrdersHistory />} />
           <Route path="map" element={<Map />} />
+          <Route path="email-verfi" element={<EmailVerfication />} />
+
           <Route path="new-order" element={<PublishOrder />} />
           {/* <Route path="orders-list" element={<OrderCardsList />} /> */}
           {/* <Route path="landing" element={<Landing />} />
