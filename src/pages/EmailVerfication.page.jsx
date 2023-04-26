@@ -23,10 +23,10 @@ const EmailVerfication = ({registerEmail}) => {
     const navigate= useNavigate();
   const inputRefs = useRef([]);
   const [typed_code, setTyped_code] = useState({
-    digit1:0,
-    digit2:0,
-    digit3:0,
-    digit4:0
+    digit1:"",
+    digit2:"",
+    digit3:"",
+    digit4:""
   })
 
   const handleInputChange = (e, index) => {
