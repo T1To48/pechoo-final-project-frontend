@@ -62,10 +62,8 @@ useEffect(() => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          {/* <Route index element={<CounterReduxTest/>} /> */}
           <Route index element={<LandingPage/>} />
           <Route path="register" element={<RegisterMUI />} />
-          {/* <Route path="register" element={<Register />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="profile-page" element={<ProfilePage />} />
           <Route path="active-user-orders" element={<ActiveUserOrders />} />

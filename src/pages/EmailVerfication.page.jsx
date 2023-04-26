@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import {  register,reset } from "../features/users/userSlice.jsx";
 
+
 import {
   Link,
   Button,
@@ -18,6 +19,8 @@ import {
   Select,
 } from "@mui/material";
 import { lokalStorage } from "../features/importsIndex.jsx";
+import SmallLoader from "../components/Common/small_Loader/SmallLoader.jsx";
+
 
 const EmailVerfication = ({ onClick }) => {
   const dispatch = useDispatch();
@@ -34,8 +37,6 @@ const EmailVerfication = ({ onClick }) => {
     (state) => state.user
   );
 
-  const checkVerifyCode = () =>
-    Object.values(typed_code).join("") === verifyCode;
 
 
   const handleInputChange = (e, index) => {
@@ -51,7 +52,6 @@ const EmailVerfication = ({ onClick }) => {
     if (inputValue.length < 1 && index > 0) {
       inputRefs.current[index - 1].focus();
     }
-    console.log( [verifyCode,Object.values(typed_code).join("")])
     
   };
 
@@ -63,12 +63,11 @@ useEffect (() => {
 
   useEffect(() => {
     if (isError) {
-      alert(`ERROR While Registering ${message}`);
+      alert(message);
     }
-    if (isSuccess) {
+    if (isSuccess&&message==="register success") {
       lokalStorage("remove","registerUser");
       navigate("/login")
-      alert("registration successfull ");
     }
 
     dispatch(reset());
@@ -122,9 +121,9 @@ useEffect (() => {
               variant="contained"
               onClick={()=>dispatch(register(lokalStorage("get","registerUser")))}
               sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8 }}
-              disabled={disable_register_button}
+              disabled={isLoading}
             >
-              Register
+             {isLoading?<SmallLoader/>:"Register"} 
             </Button>
           </Grid>
         </Grid>

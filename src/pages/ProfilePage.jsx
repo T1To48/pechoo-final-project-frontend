@@ -48,7 +48,8 @@ setProfileDetails({
 
 const handleLogout=()=>{
   dispatch(logout())
-  navigate("/register")
+  navigate("/login")
+  
 }
 
   return (

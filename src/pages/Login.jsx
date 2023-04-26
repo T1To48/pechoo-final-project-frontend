@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login, reset } from "../features/users/userSlice.jsx";
-
+import InputField from "../components/Common/InputField.jsx";
 import {
   Container,
   Box,
@@ -11,7 +11,9 @@ import {
   TextField,
   Button,
   Link,
+  Chip,
 } from "@mui/material";
+import SmallLoader from "../components/Common/small_Loader/SmallLoader.jsx";
 
 const Login = () => {
   const [loginDetails, setLoginDetails] = useState({
@@ -38,7 +40,7 @@ const Login = () => {
 
       console.log(`successfully logged in`);
 
-      // navigate()
+     navigate("/active-user-orders")
     }
     dispatch(reset());
   }, [loggedUser, isError, isSuccess, message]);
@@ -53,7 +55,20 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(loginDetails));
   };
-
+const loginForm=[
+  {
+  name:"email",
+  type:"text",
+  label:"Email Address",
+  value:email
+},
+  {
+  name:"password",
+  type:"password",
+  label:"Password",
+  value:password
+}
+]
   return (
     <Container
       component="main"
@@ -78,28 +93,8 @@ const Login = () => {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                name="email"
-                type="email"
-                label="Email Address"
-                fullWidth
-                value={email}
-                onChange={handleChange}
-                required={true}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                name="password"
-                label="password"
-                type="password"
-                value={password}
-                onChange={handleChange}
-                required={true}
-              />
-            </Grid>
+            {loginForm.map((input)=><InputField key={input.name} name={input.name} type={input.type} label={input.label} value={input.value} onChange={handleChange} />)}
+
           </Grid>
           <Grid item>
             <Link onClick={() => navigate("/")}>Forgot password?</Link>
@@ -108,10 +103,11 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8 }}
+            sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8}}
             disabled={isLoading}
           >
-            Login
+
+            {isLoading?<SmallLoader/>:"Login"}
           </Button>
           <Grid container justifyContent="center">
             <Grid item>
@@ -127,3 +123,26 @@ const Login = () => {
 };
 
 export default Login;
+            
+            // <Grid item xs={12}>
+            //   <TextField
+            //     name="email"
+            //     type="email"
+            //     label="Email Address"
+            //     fullWidth
+            //     value={email}
+            //     onChange={handleChange}
+            //     required={true}
+            //   />
+            // </Grid>
+            // <Grid item xs={12}>
+            //   <TextField
+            //     fullWidth
+            //     name="password"
+            //     label="password"
+            //     type="password"
+            //     value={password}
+            //     onChange={handleChange}
+            //     required={true}
+            //   />
+            // </Grid> 

@@ -98,17 +98,17 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
        .addCase(verifyCodeByEmail.pending, (state) => {
-      //   state.isLoading = true;
+        state.isLoading = true;
        })
       .addCase(verifyCodeByEmail.fulfilled, (state, action) => {
-        // state.isLoading = false;
-        // state.isSuccess = true;
+        state.isLoading = false;
+        state.isSuccess = true;
         console.log("CODE fullfilled",action.payload)
         state.verifyCode = `${action.payload}`;
       })
        .addCase(verifyCodeByEmail.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.isError = true;
+        state.isLoading = false;
+        state.isError = true;
         
        })
       .addCase(register.pending, (state) => {
@@ -116,9 +116,8 @@ export const userSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
-
-       
         state.isSuccess = true;
+        state.message="register success"
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;

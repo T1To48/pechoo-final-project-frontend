@@ -51,7 +51,7 @@ export default function RegisterMUI() {
     });
   }, [addressName, addressCoords]);
 
-  const { loggedUser, isLoading, isError, isSuccess, message } = useSelector(
+  const {  isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
 
@@ -59,7 +59,8 @@ export default function RegisterMUI() {
     if (isError) {
       alert(`ERROR While Registering ${message}`);
     }
-    if (isSuccess) {
+    console.log(message)
+    if (isSuccess&& message==="register success") {
       setRegisterDetails({
         name: "",
         email: "",
@@ -73,7 +74,7 @@ export default function RegisterMUI() {
     }
 
     dispatch(reset());
-  }, [loggedUser, isError, isSuccess, message]);
+  }, [ isError, isSuccess, message]);
 
   const handleChange = (e) => {
     if (e.target.value === "Restaurant") {
@@ -101,6 +102,13 @@ setRegisterDetails({
   
 
   useEffect(() => {
+    // console.log(lokalStorage("get","registerUser"))
+    if(lokalStorage("get","registerUser")){
+      setRegisterDetails({
+        ...registerDetails,
+        ...lokalStorage("get","registerUser")
+      })
+    }
     if (userType === "Driver") {
       setRegisterDetails({
         ...registerDetails,

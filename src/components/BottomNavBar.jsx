@@ -86,23 +86,62 @@ export default function BottomNavBar() {
               color="inherit"
               aria-label="open drawer"
               onClick={() => navigate("/delivered-orders")}
+              sx={{
+                flexDirection: "column",
+
+                color:
+                activeTab === "/delivered-orders"&& theme.palette.secondary.buttonText
+              }}
             >
               <HistoryRoundedIcon fontSize="large" />
+              <Typography fontSize="small" fontWeight="700">
+                History
+              </Typography>
             </IconButton>
-            <IconButton onClick={() => navigate("/active-user-orders")} color="inherit" aria-label="open drawer">
+            <IconButton sx={{
+                flexDirection: "column",
+
+                color:
+                activeTab === "/active-user-orders"&& theme.palette.secondary.buttonText
+              }} onClick={() => navigate("/active-user-orders")} color="inherit" aria-label="open drawer">
               <OnlinePredictionRoundedIcon fontSize="large" />
+              <Typography fontSize="small" fontWeight="700">
+                Active
+              </Typography>
             </IconButton>
 
             <div style={{width:"10px"}} />
-            <StyledFab  onClick={() => navigate(`/${userType}`)} color="primary" sx={{ marginTop: "10px" }}>
-              <DeliveryDiningRoundedIcon fontSize="large" />
+            <StyledFab  onClick={() => navigate(`/${userType}`)} color="primary"  sx={{ marginTop: "10px",p:0,flexDirection: "column",
+
+                color:
+                activeTab === "/published-orders"&& theme.palette.primary.black}}  >
+              <DeliveryDiningRoundedIcon fontSize="large"  />
+              <Typography fontSize="small" fontWeight="700">
+                NEW
+              </Typography>
             </StyledFab>
 
-            <IconButton color="inherit">
+            <IconButton sx={{
+                flexDirection: "column",
+
+                // color:
+                // activeTab === "/"&& theme.palette.secondary.buttonText
+              }} color="inherit">
               <MapIcon fontSize="large" />
+                <Typography fontSize="small" fontWeight="700">
+                Track
+              </Typography>
             </IconButton>
-            <IconButton onClick={() => navigate("/profile-page")} fontSize="large" color="inherit">
-              <PersonRoundedIcon  />
+            <IconButton sx={{
+                flexDirection: "column",
+
+                color:
+                activeTab === "/profile-page"&& theme.palette.secondary.buttonText
+              }} onClick={() => navigate("/profile-page")} fontSize="large" color="inherit">
+              <PersonRoundedIcon fontSize="large" />
+              <Typography fontSize="small" fontWeight="700">
+                Profile
+              </Typography>
             </IconButton>
           </>
         ) : (
@@ -112,9 +151,7 @@ export default function BottomNavBar() {
               sx={{
                 flexDirection: "column",
                 color:
-                  activeTab === "/register"
-                    ? theme.palette.primary.main
-                    : theme.palette.secondary.buttonText,
+                  activeTab === "/register"&& theme.palette.secondary.buttonText
               }}
               onClick={() => navigate("/register")}
               disableRipple
@@ -129,9 +166,7 @@ export default function BottomNavBar() {
               sx={{
                 flexDirection: "column",
                 color:
-                  activeTab === "/tracking-map"
-                    ? theme.palette.primary.main
-                    : theme.palette.secondary.buttonText,
+                  activeTab === "/tracking-map"&& theme.palette.secondary.buttonText
               }}
               // onClick={() => navigate("/tracking-map")}
               disableRipple
@@ -147,9 +182,8 @@ export default function BottomNavBar() {
               sx={{
                 flexDirection: "column",
                 color:
-                  activeTab === "/login"
-                    ? theme.palette.primary.main
-                    : theme.palette.secondary.buttonText,
+                  activeTab === "/login"&& theme.palette.secondary.buttonText
+                    
               }}
               onClick={() => navigate("/login")}
               disableRipple
