@@ -103,7 +103,7 @@ const Login = () => {
             </Grid> 
            
           </Grid> <Grid item>
-              <Link onClick={() => navigate("/email-verfi")}>
+              <Link onClick={() => navigate("/")}>
               Forgot password?
               </Link>
             </Grid>
