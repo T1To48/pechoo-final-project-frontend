@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { resetBing } from "../features/BingMapsApi/bingSlice.jsx";
-import { register, reset } from "../features/users/userSlice.jsx";
+import { register, reset,verifyCodeByEmail,resetVerifyCode } from "../features/users/userSlice.jsx";
 
 import AddressForm from "../components/AddressForm.jsx";
 import SimpleDialog from "../components/Common/SimpleDialog.jsx";
