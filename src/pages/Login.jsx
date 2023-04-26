@@ -23,7 +23,7 @@ const Login = () => {
   const { loggedUser, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -87,7 +87,6 @@ const Login = () => {
                 value={email}
                 onChange={handleChange}
                 required={true}
-
               />
             </Grid>
             <Grid item xs={12}>
@@ -100,13 +99,11 @@ const Login = () => {
                 onChange={handleChange}
                 required={true}
               />
-            </Grid> 
-           
-          </Grid> <Grid item>
-              <Link onClick={() => navigate("/")}>
-              Forgot password?
-              </Link>
             </Grid>
+          </Grid>
+          <Grid item>
+            <Link onClick={() => navigate("/")}>Forgot password?</Link>
+          </Grid>
           <Button
             type="submit"
             fullWidth
@@ -122,10 +119,7 @@ const Login = () => {
                 Don't have an account? Register
               </Link>
             </Grid>
-           
           </Grid>
-          
-         
         </Box>
       </Box>
     </Container>

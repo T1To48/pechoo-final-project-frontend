@@ -18,8 +18,8 @@ export const verifyCodeByEmail = createAsyncThunk(
   "user/verifyCodeByEmail",
   async (userEmail, thunkAPI) => {
     try {
-      const response = await sendVerifyCode(userEmail);
-      const CODE = response.data.verficationCode;
+      const data = await sendVerifyCode(userEmail);
+      const CODE = data.verficationCode;
       return CODE;
     } catch (error) {
       const message =
@@ -97,18 +97,20 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(verifyCodeByEmail.pending, (state) => {
-        state.isLoading = true;
-      })
+       .addCase(verifyCodeByEmail.pending, (state) => {
+      //   state.isLoading = true;
+       })
       .addCase(verifyCodeByEmail.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-      })
-      .addCase(verifyCodeByEmail.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
+        // state.isLoading = false;
+        // state.isSuccess = true;
+        console.log("CODE fullfilled",action.payload)
         state.verifyCode = `${action.payload}`;
       })
+       .addCase(verifyCodeByEmail.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isError = true;
+        
+       })
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })

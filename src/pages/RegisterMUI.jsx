@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { resetBing } from "../features/BingMapsApi/bingSlice.jsx";
 import { register, reset,verifyCodeByEmail,resetVerifyCode } from "../features/users/userSlice.jsx";
-
+import EmailVerfication from "./EmailVerfication.page.jsx";
 import AddressForm from "../components/AddressForm.jsx";
 import SimpleDialog from "../components/Common/SimpleDialog.jsx";
 
@@ -21,6 +21,7 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
+import { lokalStorage } from "../features/importsIndex.jsx";
 
 export default function RegisterMUI() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -70,9 +71,6 @@ export default function RegisterMUI() {
       });
       alert("registration successfull ");
     }
-    // if(loggedUser){
-    //   navigate()
-    // }
 
     dispatch(reset());
   }, [loggedUser, isError, isSuccess, message]);
@@ -90,13 +88,17 @@ export default function RegisterMUI() {
   useEffect(() => console.log(registerDetails), [registerDetails]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setRegisterDetails({
+      e.preventDefault();
+
+setRegisterDetails({
       ...registerDetails,
       phone: phone - 0,
     });
-    dispatch(register(registerDetails));
+    dispatch(verifyCodeByEmail(email));
+    lokalStorage("set","registerUser",registerDetails);
+    navigate("/email-verfi")
   };
+  
 
   useEffect(() => {
     if (userType === "Driver") {
@@ -223,13 +225,15 @@ export default function RegisterMUI() {
                 </FormControl>
               </Grid>
             </Grid>
+
             <Button
-              type="submit"
+              
               fullWidth
               variant="contained"
+              type="submit"
               sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8 }}
             >
-              Register
+              Procced
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

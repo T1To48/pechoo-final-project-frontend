@@ -1,23 +1,6 @@
-// import React from 'react'
-
-// const LandingPage = () => {
-//   return (
-//     <h1 >LandingPage</h1>
-//   )
-// }
-
-// export default LandingPage
-
-
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Grid,
-} from "@mui/material";
+import { Box, Container, Typography, Button, Grid } from "@mui/material";
 
 const LandingPage = () => {
   return (
