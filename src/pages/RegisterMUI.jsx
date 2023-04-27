@@ -1,13 +1,19 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { resetBing } from "../features/BingMapsApi/bingSlice.jsx";
-import { register, reset,verifyCodeByEmail,resetVerifyCode } from "../features/users/userSlice.jsx";
-import EmailVerfication from "./EmailVerfication.page.jsx";
+import {
+  register,
+  reset,
+  verifyCodeByEmail,
+  resetVerifyCode,
+} from "../features/users/userSlice.jsx";
 import AddressForm from "../components/AddressForm.jsx";
 import SimpleDialog from "../components/Common/SimpleDialog.jsx";
-
+import InputField from "../components/Common/InputField.jsx";
+import FormWrapper from "../components/Common/FormWrapper.jsx";
 import {
   Link,
   Button,
@@ -51,7 +57,7 @@ export default function RegisterMUI() {
     });
   }, [addressName, addressCoords]);
 
-  const {  isLoading, isError, isSuccess, message } = useSelector(
+  const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
 
@@ -59,8 +65,8 @@ export default function RegisterMUI() {
     if (isError) {
       alert(`ERROR While Registering ${message}`);
     }
-    console.log(message)
-    if (isSuccess&& message==="register success") {
+    console.log(message);
+    if (isSuccess && message === "register success") {
       setRegisterDetails({
         name: "",
         email: "",
@@ -74,7 +80,7 @@ export default function RegisterMUI() {
     }
 
     dispatch(reset());
-  }, [ isError, isSuccess, message]);
+  }, [isError, isSuccess, message]);
 
   const handleChange = (e) => {
     if (e.target.value === "Restaurant") {
@@ -89,25 +95,23 @@ export default function RegisterMUI() {
   useEffect(() => console.log(registerDetails), [registerDetails]);
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-setRegisterDetails({
+    setRegisterDetails({
       ...registerDetails,
       phone: phone - 0,
     });
     dispatch(verifyCodeByEmail(email));
-    lokalStorage("set","registerUser",registerDetails);
-    navigate("/email-verfi")
+    lokalStorage("set", "registerUser", registerDetails);
+    navigate("/email-verfi");
   };
-  
 
   useEffect(() => {
-    // console.log(lokalStorage("get","registerUser"))
-    if(lokalStorage("get","registerUser")){
+    if (lokalStorage("get", "registerUser")) {
       setRegisterDetails({
         ...registerDetails,
-        ...lokalStorage("get","registerUser")
-      })
+        ...lokalStorage("get", "registerUser"),
+      });
     }
     if (userType === "Driver") {
       setRegisterDetails({
@@ -117,6 +121,33 @@ setRegisterDetails({
       });
     }
   }, [userType]);
+
+  const registerForm = [
+    {
+      name: "name",
+      type: "text",
+      label: "Name",
+      value: name,
+    },
+    {
+      name: "email",
+      type: "text",
+      label: "Email Address",
+      value: email,
+    },
+    {
+      name: "phone",
+      type: "tel",
+      label: "Phone Number",
+      value: phone,
+    },
+    {
+      name: "password",
+      type: "password",
+      label: "Password",
+      value: password,
+    },
+  ];
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -143,116 +174,58 @@ setRegisterDetails({
           setIsDialogOpen(false);
         }}
       />
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{ width: "95%" }}
-        elevation="20"
-      >
-        <Box
-          sx={{
-            mt: 5,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            bgcolor: "white",
-            p: "2rem",
-            borderRadius: "40px",
-            boxShadow: 24,
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Register
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  name="name"
-                  type="text"
-                  value={name}
-                  label="Name"
+      <FormWrapper mTop={5} title="Register">
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            {registerForm.map((input) => (
+              <InputField
+                key={input.name}
+                name={input.name}
+                type={input.type}
+                label={input.label}
+                value={input.value}
+                onChange={handleChange}
+              />
+            ))}
+            <Grid item xs={12}>
+              <FormControl sx={{ width: "150px" }} size="small">
+                <InputLabel>I am:</InputLabel>
+                <Select
+                  name={targetName}
+                  value={userType}
+                  label="I am"
                   onChange={handleChange}
-                  required={true}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="email"
-                  type="email"
-                  label="Email Address"
-                  fullWidth
-                  value={email}
-                  onChange={handleChange}
-                  required={true}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  name="phone"
-                  label="Phone Number"
-                  type="tel"
-                  inputMode="tel"
-                  value={phone}
-                  onChange={handleChange}
-                  required={true}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  name="password"
-                  label="password"
-                  type="password"
-                  value={password}
-                  onChange={handleChange}
-                  required={true}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl sx={{ width: "150px" }} size="small">
-                  <InputLabel>I am:</InputLabel>
-                  <Select
-                    name={targetName}
-                    value={userType}
-                    label="I am"
-                    onChange={handleChange}
-                    required
-                  >
-                    {typeOfUser.map((user) => {
-                      return (
-                        <MenuItem key={user} value={user}>
-                          {user}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-              </Grid>
+                  required
+                >
+                  {typeOfUser.map((user) => {
+                    return (
+                      <MenuItem key={user} value={user}>
+                        {user}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
             </Grid>
+          </Grid>
 
-            <Button
-              
-              fullWidth
-              variant="contained"
-              type="submit"
-              sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8 }}
-            >
-              Procced
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link onClick={() => navigate("/login")}>
-                  Already have an account? Login
-                </Link>
-              </Grid>
+          <Button
+            fullWidth
+            variant="contained"
+            type="submit"
+            sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8 }}
+          >
+            Procced
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link onClick={() => navigate("/login")}>
+                Already have an account? Login
+              </Link>
             </Grid>
-          </Box>
+          </Grid>
         </Box>
-      </Container>
+      </FormWrapper>
     </>
   );
 }
