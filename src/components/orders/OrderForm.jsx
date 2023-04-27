@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { publishOrder, resetOrderStates } from "../../features/orders/orderSlice.jsx";
+import {
+  publishOrder,
+  resetOrderStates,
+} from "../../features/orders/orderSlice.jsx";
 import AddressForm from "../AddressForm.jsx";
+import FormWrapper from "../Common/FormWrapper.jsx";
+
+import InputField from "../Common/InputField.jsx";
+import { Box, Grid } from "@mui/material";
 
 const OrderForm = () => {
   const [orderDetails, setOrderDetails] = useState({
@@ -26,7 +33,7 @@ const OrderForm = () => {
     }
     if (isSuccess && publishedOrder) {
       console.log("order published successfully");
-      // Navigate() 
+      // Navigate()
       dispatch(resetOrderStates());
       setOrderDetails({
         customerName: "",
@@ -38,8 +45,6 @@ const OrderForm = () => {
         createdAtMS: `${Date.now()}`,
       });
     }
-
-   
   }, [isLoading, isError, isSuccess, errorMessage]);
 
   useEffect(() => {
@@ -66,12 +71,55 @@ const OrderForm = () => {
     dispatch(publishOrder(orderDetails));
   };
 
-  useEffect(() => {
-    console.log(orderDetails);
-  }, [orderDetails]);
 
+
+  const newOrderForm = [
+    {
+      name: "customerName",
+      type: "text",
+      label: "Customer Name",
+      value: customerName,
+    },
+    {
+      name: "customerPhone",
+      type: "tel",
+      label: "Customer Phone",
+      value: customerPhone,
+    },
+    {
+      name: "price",
+      type: "number",
+      label: "Price",
+      value: customerPhone,
+      inputMode: "decimal",
+    },
+    {
+      name: "readyTime",
+      type: "number",
+      label: "Price",
+      value: readyTime,
+      // inputMode:"decimal"
+    },
+  ];
   return (
-    <form onSubmit={submitOrder}>
+    <FormWrapper title="Publish Order" mTop={5}>
+      <Box component="form" onSubmit={submitOrder} sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          {newOrderForm.map((input) => (
+            <InputField
+              key={input.name}
+              name={input.name}
+              type={input.type}
+              label={input.label}
+              value={input.value}
+              onChange={handleChange}
+            />
+          ))}
+          <Grid item xs={12}>
+            <AddressForm />
+          </Grid>
+        </Grid>
+        {/* <form onSubmit={submitOrder}>
       <label htmlFor="customerName">
         Customer Name:
         <input
@@ -124,7 +172,9 @@ const OrderForm = () => {
       <br />
       <br />
       <button type="submit">Publish Order</button>
-    </form>
+    </form> */}
+      </Box>
+    </FormWrapper>
   );
 };
 

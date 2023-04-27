@@ -48,7 +48,9 @@ export default function RegisterMUI() {
   const dispatch = useDispatch();
 
   const { addressName, addressCoords } = useSelector((state) => state.bing);
-
+ const { isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.user
+  );
   useEffect(() => {
     setRegisterDetails({
       ...registerDetails,
@@ -57,15 +59,12 @@ export default function RegisterMUI() {
     });
   }, [addressName, addressCoords]);
 
-  const { isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.user
-  );
+ 
 
   useEffect(() => {
     if (isError) {
       alert(`ERROR While Registering ${message}`);
     }
-    console.log(message);
     if (isSuccess && message === "register success") {
       setRegisterDetails({
         name: "",
@@ -92,7 +91,6 @@ export default function RegisterMUI() {
     });
   };
 
-  useEffect(() => console.log(registerDetails), [registerDetails]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -149,6 +147,7 @@ export default function RegisterMUI() {
     },
   ];
 
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -168,7 +167,7 @@ export default function RegisterMUI() {
           dispatch(resetBing());
         }}
         dialogTitle="Restaurant Address"
-        dialogText={<AddressForm />}
+        dialogText={<AddressForm withCurrentLocation={true}/>}
         confirmFunction={() => {
           console.log("confirmfunction");
           setIsDialogOpen(false);

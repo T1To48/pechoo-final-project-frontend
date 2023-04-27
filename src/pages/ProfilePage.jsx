@@ -35,7 +35,7 @@ setProfileDetails({
   name:user.name,
   email:user.email,
   phone:user.phone,
-  address:user.address,
+  address:user.address||null,
   userType:user.userType
 })
 },[]) 

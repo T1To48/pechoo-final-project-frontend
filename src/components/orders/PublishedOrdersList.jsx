@@ -29,7 +29,6 @@ const navigate=useNavigate();
 
   
   const handleDriverAccept=(orderId)=>{
-    console.log("TARGEET",orderId)
 
     dispatch(updateOrderAccepted(orderId))
 }
@@ -51,7 +50,7 @@ useEffect(() => {
     const setDriverLocation = setInterval(() => {
       dispatch(getPublishedOrders());
       dispatch(fetchCurrentLocation());
-      console.log("i think am working!!!!!!");
+      console.log("INTERVAL driverLocation PublisheddordersList");
     }, 7000);
 
     return () => {

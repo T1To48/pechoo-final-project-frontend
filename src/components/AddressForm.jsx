@@ -7,9 +7,10 @@ import {
   getAddressByString,
   resetBing,
 } from "../features/BingMapsApi/bingSlice.jsx";
-import { IconButton, Typography,Grid,TextField, Button,Box } from "@mui/material";
+import { IconButton, Typography,Grid,TextField, Button,Box, } from "@mui/material";
 
-const AddressForm = () => {
+const AddressForm = ({withCurrentLocation}) => {
+  const[disableCheckAddress,setDisableCheckAddress]=useState(true);
   const [fullAddress, setFullAddress] = useState({
     streetNumber: "",
     street: "",
@@ -25,6 +26,7 @@ const AddressForm = () => {
       ...fullAddress,
       [e.target.name]: e.target.value,
     });
+
   };
 
   const getCurrentAddress = async (e) => {
@@ -36,10 +38,7 @@ const AddressForm = () => {
 
   };
   const checkAddress = async (e) => {
-    e.preventDefault();
-    if (e.target.value === "") {
-      return;
-    }
+    
     if (city) {
       dispatch(getAddressByString(fullAddress));
     }
@@ -59,6 +58,18 @@ const AddressForm = () => {
       });
     }
   }, [currentLocation,addressCoords]);
+
+  useEffect(() => {
+    if(streetNumber&&street&&city) {
+
+      setDisableCheckAddress(false)
+     }
+     if(!streetNumber||!street||!city){
+
+      setDisableCheckAddress(true)
+     }
+  }, [fullAddress]);
+
 
   useEffect(() => {
     dispatch(fetchCurrentLocation());
@@ -86,7 +97,7 @@ const AddressForm = () => {
   }
   return (
    <>
-   <Box variant="div" component="form" onSubmit={checkAddress} >
+   <Box variant="div"   >
              <Grid container spacing={1.5} sx={{
             mt: 0,
             display: "flex",
@@ -96,14 +107,17 @@ const AddressForm = () => {
             p: "0 2rem",
             
           }}>
+              {withCurrentLocation&&
+              <>
               <Grid item xs={12}  >
                 <Button variant="contained" onClick={getCurrentAddress} > <MyLocationRoundedIcon/> &nbsp; Current Location </Button>
         
-              </Grid>
-              <Grid sx={{fontWeight:700}}item xs={12}  >
+              </Grid>  <Grid sx={{fontWeight:700}}item xs={12}  >
               
               OR 
               </Grid>
+              </>}
+            
               <Grid item xs={12}>
                 <TextField
                   label="Street Number"
@@ -137,7 +151,7 @@ const AddressForm = () => {
                 />
               </Grid>
                <Grid item xs={12}>
-<Button variant="contained" type="submit">Check Address</Button >
+<Button variant="contained" onClick={checkAddress} disabled={disableCheckAddress}>Check Address</Button >
               </Grid>
               </Grid>
 

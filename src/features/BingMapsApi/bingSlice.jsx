@@ -98,9 +98,7 @@ export const getRouteInfo = createAsyncThunk(
     try {
       const response = await axios.get(generateUrl("routeInfo", destinationCoords));
       const { data } = response;
-      console.log(data);
       if (data.statusDescription !== "OK") {
-        alert("nnn")
         throw new Error(data.errorDetails[0]);
       }
       const { estimatedTotal } = data.resourceSets[0];

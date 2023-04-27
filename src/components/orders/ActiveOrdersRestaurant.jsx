@@ -59,7 +59,6 @@ const ActiveOrdersRestaurant = () => {
     }
     if (isSuccess && userOrders.length > 0) {
       // setActiveOrders(lokalStorage("get","userOrders"))
-      // console.log("userOrders => SUCCESS");
     }
     dispatch(resetOrderStates());
   }, [isError, isSuccess, errorMessage]);
@@ -68,7 +67,7 @@ const ActiveOrdersRestaurant = () => {
     // const user = lokalStorage("get", "loggedUser") || false;
 
     const setDriverLocation = setInterval(() => {
-      console.log("INTERVAL ACTIVE ORDERS");
+      console.log("INTERVAL ACTIVE_ORDERS_REST.jsx");
       dispatch(get_User_Orders_By_Status("all"));
     }, 1000);
 
@@ -110,7 +109,6 @@ const ActiveOrdersRestaurant = () => {
           dialogTitle={dialogDetails.dialogTitle}
           dialogText="Update Order Status..."
           confirmFunction={() => {
-            console.log(dialogDetails);
             dispatch(
               updateOrder([
                 dialogDetails.orderId,

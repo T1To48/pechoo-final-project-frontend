@@ -77,7 +77,6 @@ export const updateOrder=createAsyncThunk(
       if (!updatedOrder) {
         throw new Error("UpdateOrder Failed");
       }
-      // console.log(updatedOrder.data)
       return updatedOrder.data
     }
     catch(error){
@@ -108,7 +107,6 @@ export const get_User_Orders_By_Status = createAsyncThunk(
       }
       return requested_User_Orders.data;
     } catch (error) {
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",error)
       const message =
         (error.response &&
           error.response.data &&
@@ -171,7 +169,6 @@ export const orderSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.publishedOrder = action.payload;
-        console.log("order has published successfully", action.payload);
       })
       .addCase(publishOrder.rejected, (state, action) => {
         state.isLoading = false;

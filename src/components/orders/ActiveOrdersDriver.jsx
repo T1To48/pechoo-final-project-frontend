@@ -72,7 +72,7 @@ const ActiveOrdersDriver = () => {
     // const user = lokalStorage("get", "loggedUser") || false;
 
     const setDriverLocation = setInterval(() => {
-      console.log("INTERVAL ACTIVE ORDERS");
+      console.log("INTERVAL ACTIVE_ORDERS_DRIVER.jsx");
       dispatch(get_User_Orders_By_Status("all"));
     }, 1000);
 
@@ -117,7 +117,6 @@ const ActiveOrdersDriver = () => {
           dialogTitle={dialogDetails.dialogTitle}
           dialogText="Update Order Status..."
           confirmFunction={() => {
-            console.log(dialogDetails);
             dispatch(
               updateOrder([
                 dialogDetails.orderId,

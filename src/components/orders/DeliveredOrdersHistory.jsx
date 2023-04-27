@@ -19,7 +19,6 @@ const DeliveredOrdersHistory = () => {
       console.log(`ERROR While getting active orders ${errorMessage}`);
     }
     if (isSuccess && userOrders.length > 0) {
-      console.log("Delivere Orders => SUCCESS");
     }
     dispatch(resetOrderStates());
   }, [isError, isSuccess, errorMessage]);

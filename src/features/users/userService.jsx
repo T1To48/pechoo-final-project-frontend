@@ -47,7 +47,6 @@ export const loginUser = async (userData) => {
     data: userData,
   };
   let response = await axios.request(reqOptions);
-  console.log(response);
   return response.data;
 };
 

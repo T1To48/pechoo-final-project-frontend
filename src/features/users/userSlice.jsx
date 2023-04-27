@@ -103,7 +103,6 @@ export const userSlice = createSlice({
       .addCase(verifyCodeByEmail.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        console.log("CODE fullfilled",action.payload)
         state.verifyCode = `${action.payload}`;
       })
        .addCase(verifyCodeByEmail.rejected, (state, action) => {

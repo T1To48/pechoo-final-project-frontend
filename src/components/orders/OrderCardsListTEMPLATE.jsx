@@ -35,7 +35,6 @@ const OrderCardsList = () => {
       const setDriverLocation = setInterval(() => {
         dispatch(getPublishedOrders());
         dispatch(fetchCurrentLocation());
-        console.log("i think am working!!!!!!");
       }, 7000);
   
       return () => {

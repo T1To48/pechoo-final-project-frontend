@@ -32,7 +32,7 @@ const [userLocation, setUserLocation] = useState("")
     if (user && user.userType === "Driver") {
       const setDriverLocation = setInterval(() => {
         dispatch(fetchCurrentLocation());
-        console.log("APP APP.jsx")
+        console.log("INTERVAL APP.jsx")
         setUserLocation(lokalStorage("get", "currentLocation")||"")
       }, 5000);
       

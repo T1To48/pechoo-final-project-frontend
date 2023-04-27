@@ -38,7 +38,6 @@ const Login = () => {
         password: "",
       });
 
-      console.log(`successfully logged in`);
 
      navigate("/active-user-orders")
     }

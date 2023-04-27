@@ -36,7 +36,6 @@ export const userOrdersByStatus = async (status) => {
     headers: { Authorization: `Bearer ${getToken()}` },
   };
   let response = await axios.request(reqOptions);
-console.log(response.data)
   return response.data;
 };
 
@@ -60,7 +59,6 @@ export const changeOrderDetails=async(orderId,toUpdate)=>{
     data:reqBody
   }
   let response= await axios.request(reqOptions);
-  console.log(response.data);
 return response.data;
 }
 
@@ -74,7 +72,6 @@ export const  updateOrder_TOAccepted=(orderId)=>{
   };
 
   let response=axios.request(reqOptions);
-  console.log(response)
   return response
 
 }
