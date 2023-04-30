@@ -12,11 +12,9 @@ const tragetName="orderStatus"
   return (
     <div style={{ display:"flex",justifyContent:"center", }}>
       <FormControl sx={{minWidth:100}} size="small">
-    {/* <InputLabel>I am:</InputLabel> */}
     <Select
       name={tragetName}
        value={value}
-      // label="I am"
       onChange={onChange}
       required
     >

@@ -117,6 +117,7 @@ const ActiveOrdersDriver = () => {
           dialogTitle={dialogDetails.dialogTitle}
           dialogText="Update Order Status..."
           confirmFunction={() => {
+            setOpenDialog(false)
             dispatch(
               updateOrder([
                 dialogDetails.orderId,

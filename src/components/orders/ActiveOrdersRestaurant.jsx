@@ -20,12 +20,11 @@ const ActiveOrdersRestaurant = () => {
 
   const { isSuccess, isLoading, isError, errorMessage, userOrders } =
     useSelector((state) => state.order);
-
+    const undeliveredOrders=userOrders.filter((order) => order.orderStatus !== "Delivered")
   const [dialogDetails, setDialogDetails] = useState({
     orderId: "",
     orderStatus: "",
     dialogTitle: "Update Order Status",
-    // dialogText: <OrderStatusUpdateRestaurant value={ this.orderStatus} onChange={onChangeOrderStatus} />,
   });
 function onChangeOrderStatus(e){
   console.log(e.target.value)
@@ -41,30 +40,7 @@ function onChangeOrderStatus(e){
         });
         setOpenDialog(true);
   }
-  // const dialogInfo = (orderStatus, orderId) => {
-  //   switch (orderStatus) {
-  //     case "Ready For Delivery":
-  //       setDialogDetails({
-  //         ...dialogDetails,
-  //         orderId: orderId,
-  //         orderStatus: "On The Way",
-  //         dialogTitle: "Order On The Way?",
-  //       });
-  //       setOpenDialog(true);
-  //       return true;
-  //     case "On The Way":
-  //       setDialogDetails({
-  //         ...dialogDetails,
-  //         orderId: orderId,
-  //         orderStatus: "Delivered",
-  //         dialogTitle: "Arrived At the Destination?",
-  //       });
-  //       setOpenDialog(true);
-  //       return true;
-  //     default:
-  //       return false;
-  //   }
-  // };
+ 
 
   useEffect(() => {
     if (isError) {
@@ -77,7 +53,6 @@ function onChangeOrderStatus(e){
   }, [isError, isSuccess, errorMessage]);
 
   useEffect(() => {
-    // const user = lokalStorage("get", "loggedUser") || false;
 
     const setDriverLocation = setInterval(() => {
       console.log("INTERVAL ACTIVE_ORDERS_REST.jsx");
@@ -88,11 +63,10 @@ function onChangeOrderStatus(e){
       clearInterval(setDriverLocation);
     };
   }, []);
-  if (userOrders.length > 0)
+  if (undeliveredOrders.length > 0)
     return (
       <div>
-        {userOrders
-          .filter((order) => order.orderStatus !== "Delivered")
+        {undeliveredOrders
           .map((order) => {
             return (
               <OrderCard
@@ -132,6 +106,7 @@ function onChangeOrderStatus(e){
         />
       </div>
     );
+    else return (<h1>No Orders YET</h1>)
 };
 
 export default ActiveOrdersRestaurant;

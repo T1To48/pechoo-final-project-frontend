@@ -19,6 +19,7 @@ const DeliveredOrdersHistory = () => {
       console.log(`ERROR While getting active orders ${errorMessage}`);
     }
     if (isSuccess && userOrders.length > 0) {
+      console.log(userOrders)
     }
     dispatch(resetOrderStates());
   }, [isError, isSuccess, errorMessage]);
@@ -38,15 +39,7 @@ const DeliveredOrdersHistory = () => {
               customerPhone={order.customerPhone}
               price={order.price}
               orderStatus={order.orderStatus}
-              // coords={order.coords}
-              // handleButton1={
-              //   order.orderStatus !== "Accepted"
-              //     ? () => dialogInfo(order.orderStatus, order.id)
-              //     : false
-              // }
-              // handleButton2={()=>{navigate(`/map`); lokalStorage("set","destination",order.coords)}}
-              // textButton1="Update Status"
-              // textButton2="Check Route"
+            
             />
           );
         })}
