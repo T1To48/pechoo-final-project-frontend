@@ -9,9 +9,9 @@ import {
   updateOrder,
 } from "../../features/orders/orderSlice.jsx";
 
-
 import SimpleDialog from "../Common/SimpleDialog.jsx";
 import OrderCard from "./orderCard/OrderCard.jsx";
+import OrderStatusUpdateRestaurant from "./OrderStatusUpdateRestaurant.jsx";
 
 const ActiveOrdersRestaurant = () => {
   const navigate = useNavigate();
@@ -24,34 +24,47 @@ const ActiveOrdersRestaurant = () => {
   const [dialogDetails, setDialogDetails] = useState({
     orderId: "",
     orderStatus: "",
-    dialogTitle: "",
-    dialogText: "Update Order Status...",
+    dialogTitle: "Update Order Status",
+    // dialogText: <OrderStatusUpdateRestaurant value={ this.orderStatus} onChange={onChangeOrderStatus} />,
   });
-
-  const dialogInfo = (orderStatus, orderId) => {
-    switch (orderStatus) {
-      case "Ready For Delivery":
-        setDialogDetails({
+function onChangeOrderStatus(e){
+  console.log(e.target.value)
+  setDialogDetails({
+    ...dialogDetails,
+    [e.target.name]:e.target.value,
+  })
+}
+  const openStatusUpdateDialog=(orderId)=>{
+    setDialogDetails({
           ...dialogDetails,
           orderId: orderId,
-          orderStatus: "On The Way",
-          dialogTitle: "Order On The Way?",
         });
         setOpenDialog(true);
-        return true;
-      case "On The Way":
-        setDialogDetails({
-          ...dialogDetails,
-          orderId: orderId,
-          orderStatus: "Delivered",
-          dialogTitle: "Arrived At the Destination?",
-        });
-        setOpenDialog(true);
-        return true;
-      default:
-        return false;
-    }
-  };
+  }
+  // const dialogInfo = (orderStatus, orderId) => {
+  //   switch (orderStatus) {
+  //     case "Ready For Delivery":
+  //       setDialogDetails({
+  //         ...dialogDetails,
+  //         orderId: orderId,
+  //         orderStatus: "On The Way",
+  //         dialogTitle: "Order On The Way?",
+  //       });
+  //       setOpenDialog(true);
+  //       return true;
+  //     case "On The Way":
+  //       setDialogDetails({
+  //         ...dialogDetails,
+  //         orderId: orderId,
+  //         orderStatus: "Delivered",
+  //         dialogTitle: "Arrived At the Destination?",
+  //       });
+  //       setOpenDialog(true);
+  //       return true;
+  //     default:
+  //       return false;
+  //   }
+  // };
 
   useEffect(() => {
     if (isError) {
@@ -90,12 +103,11 @@ const ActiveOrdersRestaurant = () => {
                 price={order.price}
                 orderStatus={order.orderStatus}
                 coords={order.coords}
-                handleButton1={
-                  order.orderStatus !== "Accepted"
-                    ? () => dialogInfo(order.orderStatus, order.id)
-                    : false
-                }
-                handleButton2={()=>{navigate(`/map`); lokalStorage("set","destination",order.coords)}}
+                handleButton1={()=>openStatusUpdateDialog(order.id)}
+                handleButton2={() => {
+                  navigate(`/map`);
+                  lokalStorage("set", "destination", order.coords);
+                }}
                 textButton1="Update Status"
                 textButton2="Check Route"
                 // routeInfo={order.routeInfo}
@@ -107,8 +119,9 @@ const ActiveOrdersRestaurant = () => {
           isDialogOpen={openDialog}
           closeDialog={() => setOpenDialog(false)}
           dialogTitle={dialogDetails.dialogTitle}
-          dialogText="Update Order Status..."
+          dialogText={<OrderStatusUpdateRestaurant value={ dialogDetails.orderStatus} onChange={onChangeOrderStatus} />}
           confirmFunction={() => {
+            setOpenDialog(false)
             dispatch(
               updateOrder([
                 dialogDetails.orderId,
@@ -119,8 +132,6 @@ const ActiveOrdersRestaurant = () => {
         />
       </div>
     );
-
-  
 };
 
 export default ActiveOrdersRestaurant;

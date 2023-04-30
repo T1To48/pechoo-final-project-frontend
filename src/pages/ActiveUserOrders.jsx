@@ -7,7 +7,7 @@ const ActiveUserOrders = () => {
   const loggedUserType = () => lokalStorage("get", "loggedUser").userType;
 
   return (
-    <div>
+    <div style={{margin:"0.5rem"}}>
       {loggedUserType() === "Driver" ? (
         <ActiveOrdersDriver />
       ) : (

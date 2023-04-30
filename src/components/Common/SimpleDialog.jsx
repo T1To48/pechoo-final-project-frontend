@@ -42,7 +42,6 @@ export default function SimpleDialog({
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog}>Cancel</Button>
-          {addressName && (
             <Button
               onClick={() => {
                 confirmFunction();
@@ -52,7 +51,7 @@ export default function SimpleDialog({
             >
               Confirm
             </Button>
-          )}
+          
         </DialogActions>
       </Dialog>
     </>

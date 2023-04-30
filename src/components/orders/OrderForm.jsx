@@ -8,7 +8,7 @@ import AddressForm from "../AddressForm.jsx";
 import FormWrapper from "../Common/FormWrapper.jsx";
 
 import InputField from "../Common/InputField.jsx";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid,Button } from "@mui/material";
 
 const OrderForm = () => {
   const [orderDetails, setOrderDetails] = useState({
@@ -53,6 +53,7 @@ const OrderForm = () => {
       customerAddress: addressName && addressName,
       coords: addressCoords && addressCoords,
     });
+    console.log("addressName",addressName.length>0)
   }, [addressName, addressCoords]);
 
   const handleChange = (e) => {
@@ -113,12 +114,23 @@ const OrderForm = () => {
               label={input.label}
               value={input.value}
               onChange={handleChange}
+
             />
           ))}
           <Grid item xs={12}>
             <AddressForm />
           </Grid>
         </Grid>
+
+        <Button
+            fullWidth
+            variant="contained"
+            type="submit"
+            sx={{ mt: 3, mb: 2, borderRadius: "20px", boxShadow: 8 }}
+            disabled={!addressName.length>0}
+          >
+            Procced
+          </Button>
         {/* <form onSubmit={submitOrder}>
       <label htmlFor="customerName">
         Customer Name:

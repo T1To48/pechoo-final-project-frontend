@@ -41,7 +41,7 @@ export default function OrderCard({
       <Accordion
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
-        sx={{ backgroundColor: theme.palette.primary.main }}
+        sx={{ backgroundColor: theme.palette.primary.main, }}
       >
         <AccordionSummary
           sx={{
@@ -69,7 +69,9 @@ export default function OrderCard({
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ display: "flex", justifyContent: "center" }}>
-          <Card sx={{ maxWidth: 345 }}>
+          <Card sx={{ 
+             maxWidth: "90%"
+             }}>
             {/* <CardMedia
               component="img"
               alt="small route map"
@@ -78,17 +80,17 @@ export default function OrderCard({
             /> */}
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                <Chip label={customerName} style={{ backgroundColor: "red" }} />
+                <Chip label={customerName} style={{ backgroundColor: "grey" }} />
                 <Chip
                   label={customerAddress}
-                  style={{ backgroundColor: "red" }}
+                  style={{ backgroundColor: "grey" }}
                 />
                 <Chip
                   label={customerPhone}
-                  style={{ backgroundColor: "red" }}
+                  style={{ backgroundColor: "grey" }}
                 />
-                <Chip label={price} style={{ backgroundColor: "red" }} />
-                <Chip label={orderStatus} style={{ backgroundColor: "red" }} />
+                <Chip label={price} style={{ backgroundColor: "grey" }} />
+                <Chip label={orderStatus} style={{ backgroundColor: "grey" }} />
               </Typography>
             </CardContent>
             <CardActions>
