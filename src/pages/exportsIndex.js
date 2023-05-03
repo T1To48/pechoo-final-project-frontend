@@ -1,5 +1,4 @@
 import Login from "./Login.jsx";
-import Register from "./Register.jsx";
 import PublishOrder from "./PublishOrder.jsx";
 import PublishedOrders from "./PublishedOrders.jsx";
 import Map from "./Map.jsx";
@@ -10,7 +9,7 @@ import ProfilePage from "./ProfilePage.jsx";
 import RegisterMUI from "./RegisterMUI.jsx";
 export {
   LandingPage,
-  Register,
+   RegisterMUI,
   Login,
   PublishOrder,
   PublishedOrders,
@@ -18,5 +17,5 @@ export {
   ActiveUserOrders,
   OrdersHistory,
   ProfilePage,
-  RegisterMUI
+ 
 };
