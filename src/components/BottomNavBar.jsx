@@ -168,7 +168,8 @@ export default function BottomNavBar() {
                 color:
                   activeTab === "/tracking-map"&& theme.palette.secondary.buttonText
               }}
-              // onClick={() => navigate("/tracking-map")}
+               onClick={() =>alert("im connected to github properly")}
+                //  navigate("/tracking-map")}
               disableRipple
             >
               <PinDropRoundedIcon fontSize="medium" />
